@@ -1,8 +1,14 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+
 function App() {
   return (
-    <>
-      <h1>Bank System Frontend</h1>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </Router>
   );
 }
 
