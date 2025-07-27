@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import TransferPage from "./pages/TransferPage";
 import PrivateRoute from "./routes/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import Dashboard from "./pages/Dashboard";
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/transfer" element={<TransferPage />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>

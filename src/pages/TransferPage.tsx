@@ -17,7 +17,7 @@ interface TransferForm {
   amount: number;
 }
 
-export const TransferPage = () => {
+const TransferPage = () => {
   const { register, handleSubmit, reset } = useForm<TransferForm>();
   const [success, setSuccess] = useState(false);
 
@@ -80,3 +80,5 @@ export const TransferPage = () => {
     </Paper>
   );
 };
+
+export default TransferPage;
