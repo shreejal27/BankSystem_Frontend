@@ -1,0 +1,74 @@
+import { useForm } from "react-hook-form";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Paper,
+  Grid,
+  Snackbar,
+} from "@mui/material";
+import axios from "axios";
+import { useState } from "react";
+
+interface WithdrawForm {
+  accountNumber: string;
+  amount: number;
+}
+
+export const WithdrawPage = () => {
+  const { register, handleSubmit, reset } = useForm<WithdrawForm>();
+  const [success, setSuccess] = useState(false);
+
+  const onSubmit = async (data: WithdrawForm) => {
+    try {
+      await axios.post("http://localhost:5000/api/transaction/withdraw", data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setSuccess(true);
+      reset();
+    } catch (error) {
+      console.error("Withdraw failed", error);
+    }
+  };
+
+  return (
+    <Paper sx={{ maxWidth: 500, mx: "auto", mt: 5, p: 3 }}>
+      <Typography variant="h5" mb={2}>
+        Withdraw Funds
+      </Typography>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Account Number"
+              fullWidth
+              {...register("accountNumber", { required: true })}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Amount"
+              type="number"
+              fullWidth
+              {...register("amount", { required: true, min: 1 })}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" fullWidth>
+              Withdraw
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
+      <Snackbar
+        open={success}
+        autoHideDuration={3000}
+        onClose={() => setSuccess(false)}
+        message="Withdrawal successful"
+      />
+    </Paper>
+  );
+};
