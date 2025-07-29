@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import {
-  Box,
   Button,
   TextField,
   Typography,
@@ -35,14 +34,14 @@ export const WithdrawPage = () => {
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <TextField
               label="Account Number"
               fullWidth
               {...register("accountNumber", { required: true })}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <TextField
               label="Amount"
               type="number"
@@ -50,7 +49,7 @@ export const WithdrawPage = () => {
               {...register("amount", { required: true, min: 1 })}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Button type="submit" variant="contained" fullWidth>
               Withdraw
             </Button>

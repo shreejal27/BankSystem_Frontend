@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import {
-  Box,
   Button,
   TextField,
   Typography,
@@ -36,21 +35,21 @@ const TransferPage = () => {
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <TextField
               label="From Account Number"
               fullWidth
               {...register("fromAccountNumber", { required: true })}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <TextField
               label="To Account Number"
               fullWidth
               {...register("toAccountNumber", { required: true })}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <TextField
               label="Amount"
               type="number"
@@ -58,7 +57,7 @@ const TransferPage = () => {
               {...register("amount", { required: true, min: 1 })}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Button type="submit" variant="contained" fullWidth>
               Transfer
             </Button>
