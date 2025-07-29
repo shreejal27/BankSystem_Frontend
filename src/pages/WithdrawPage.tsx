@@ -8,7 +8,7 @@ import {
   Grid,
   Snackbar,
 } from "@mui/material";
-import axios from "axios";
+import axios from "../api/axios";
 import { useState } from "react";
 
 interface WithdrawForm {
@@ -17,18 +17,12 @@ interface WithdrawForm {
 }
 
 export const WithdrawPage = () => {
-  const { register, handleSubmit, reset } = useForm<WithdrawForm>();
+  const { register, handleSubmit } = useForm<WithdrawForm>();
   const [success, setSuccess] = useState(false);
 
   const onSubmit = async (data: WithdrawForm) => {
     try {
-      await axios.post("http://localhost:5000/api/transaction/withdraw", data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setSuccess(true);
-      reset();
+      await axios.post("transaction/withdraw", data);
     } catch (error) {
       console.error("Withdraw failed", error);
     }

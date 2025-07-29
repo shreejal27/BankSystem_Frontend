@@ -8,7 +8,7 @@ import {
   Grid,
   Snackbar,
 } from "@mui/material";
-import axios from "axios";
+import axios from "../api/axios";
 import { useState } from "react";
 
 interface TransferForm {
@@ -18,18 +18,12 @@ interface TransferForm {
 }
 
 const TransferPage = () => {
-  const { register, handleSubmit, reset } = useForm<TransferForm>();
+  const { register, handleSubmit } = useForm<TransferForm>();
   const [success, setSuccess] = useState(false);
 
   const onSubmit = async (data: TransferForm) => {
     try {
-      await axios.post("http://localhost:5000/api/transaction/transfer", data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setSuccess(true);
-      reset();
+      await axios.post("/transaction/transfer", data);
     } catch (error) {
       console.error("Transfer failed", error);
     }
