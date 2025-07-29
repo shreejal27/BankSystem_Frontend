@@ -5,12 +5,13 @@ import PrivateRoute from "./routes/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { WithdrawPage } from "./pages/WithdrawPage";
 import Dashboard from "./pages/Dashboard";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/transfer" element={<TransferPage />} />
         <Route path="/withdraw" element={<WithdrawPage />} />
