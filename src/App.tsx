@@ -20,8 +20,12 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         <Route element={<PrivateRoute />}>
-            <Route path="/transactionHistoryPage" element={<TransactionHistoryPage />} />
-         </Route>
+          <Route
+            path="/transactionHistoryPage"
+            element={<TransactionHistoryPage />}
+          />
+        </Route>
+      </Routes>
     </Router>
   );
 }
