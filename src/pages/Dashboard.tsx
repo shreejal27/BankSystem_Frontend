@@ -49,7 +49,7 @@ const Dashboard = () => {
   return (
     <Container maxWidth="md" sx={{ mt: 5 }}>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Typography variant="h4" gutterBottom>
             Welcome, {data.name}
           </Typography>
@@ -58,7 +58,7 @@ const Dashboard = () => {
           </Typography>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Card sx={{ backgroundColor: "#e3f2fd" }}>
             <CardContent>
               <Typography variant="h6">Total Balance</Typography>
@@ -69,7 +69,7 @@ const Dashboard = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
