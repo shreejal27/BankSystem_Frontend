@@ -6,6 +6,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { WithdrawPage } from "./pages/WithdrawPage";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
+import { TransactionHistoryPage } from "./pages/TransactionHistoryPage";
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
-      </Routes>
+        <Route element={<PrivateRoute />}>
+            <Route path="/transactionHistoryPage" element={<TransactionHistoryPage />} />
+         </Route>
     </Router>
   );
 }
