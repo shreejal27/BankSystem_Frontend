@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import TransferPage from "./pages/TransferPage";
 import PrivateRoute from "./routes/PrivateRoute";
-import { AuthProvider } from "./context/AuthContext";
 import { WithdrawPage } from "./pages/WithdrawPage";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
