@@ -6,6 +6,7 @@ import { WithdrawPage } from "./pages/WithdrawPage";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
 import { TransactionHistoryPage } from "./pages/TransactionHistoryPage";
+import { AccountProfilePage } from "./pages/AccountProfilePage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/transfer" element={<TransferPage />} />
         <Route path="/withdraw" element={<WithdrawPage />} />
+        <Route path="/accountprofilepage" element={<AccountProfilePage />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
