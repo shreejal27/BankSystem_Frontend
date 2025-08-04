@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
@@ -36,6 +37,8 @@ const router = createBrowserRouter(
             element={<TransactionHistoryPage />}
           />
         </Route>
+        
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </>
   )
