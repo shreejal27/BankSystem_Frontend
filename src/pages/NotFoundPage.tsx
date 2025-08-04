@@ -1,7 +1,8 @@
 import { Box, Typography, Button, Container } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function NotFoundPage() {
+  const navigate = useNavigate();
   return (
     <Container maxWidth="md">
       <Box
@@ -23,8 +24,7 @@ export default function NotFoundPage() {
         </Typography>
 
         <Button
-          component={RouterLink}
-          to="/"
+          onClick={() => navigate("/")}
           variant="contained"
           color="primary"
           size="large"
