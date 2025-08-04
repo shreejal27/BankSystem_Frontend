@@ -96,3 +96,5 @@ export const AccountProfilePage = () => {
     </Container>
   );
 };
+
+export default AccountProfilePage;

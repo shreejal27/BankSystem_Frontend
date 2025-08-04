@@ -65,3 +65,5 @@ export const WithdrawPage = () => {
     </Paper>
   );
 };
+
+export default WithdrawPage;
