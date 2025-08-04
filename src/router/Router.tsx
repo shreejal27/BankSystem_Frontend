@@ -1,21 +1,41 @@
 import { lazy, Suspense } from "react";
 import Layout from "../components/Layout";
-
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 
+const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
+const Dashboard = lazy(() => import("../pages/Dashboard"));
+const TransferPage = lazy(() => import("../pages/TransferPage"));
+const WithdrawPage = lazy(() => import("../pages/WithdrawPage"));
+const TransactionHistoryPage = lazy(
+  () => import("../pages/TransactionHistoryPage")
+);
+const AccountProfilePage = lazy(() => import("../pages/AccountProfilePage"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Layout />}>
-        <Route index element={<LoginPage />} />
+        <Route index element={<LandingPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="transfer" element={<TransferPage />} />
+        <Route path="withdraw" element={<WithdrawPage />} />
+        <Route path="accountprofilepage" element={<AccountProfilePage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route
+            path="transactionHistoryPage"
+            element={<TransactionHistoryPage />}
+          />
+        </Route>
       </Route>
     </>
   )
