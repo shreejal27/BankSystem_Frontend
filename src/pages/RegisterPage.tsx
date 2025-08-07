@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
+
+import api from "../api/axios";
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();

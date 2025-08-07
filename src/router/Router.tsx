@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import NotFoundPage from "../pages/NotFoundPage";
+import RegisterPage from "../pages/RegisterPage";
 
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<LandingPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
         <Route path="transfer" element={<TransferPage />} />
         <Route path="withdraw" element={<WithdrawPage />} />
         <Route path="accountprofilepage" element={<AccountProfilePage />} />
