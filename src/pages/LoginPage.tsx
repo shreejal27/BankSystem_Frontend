@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
   TextField,
@@ -8,6 +8,7 @@ import {
   Box,
   Alert,
   Paper,
+  Grid,
 } from "@mui/material";
 import api from "../api/axios";
 
@@ -68,6 +69,11 @@ const LoginPage = () => {
           >
             Login
           </Button>
+          <Grid container justifyContent="flex-end" sx={{ marginTop: 2 }}>
+            <Grid size={12}>
+              <Link to="/register">Don't have an account? Register</Link>
+            </Grid>
+          </Grid>
         </Box>
       </Paper>
     </Container>
