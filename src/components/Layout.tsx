@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 function Layout() {
   return (
-    <Container sx={{ mt: 4 }}>
+    <Container disableGutters maxWidth={false}>
       <Outlet />
     </Container>
   );
