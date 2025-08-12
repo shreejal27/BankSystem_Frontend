@@ -10,7 +10,7 @@ import {
   Paper,
   Grid,
 } from "@mui/material";
-import api from "../api/axios";
+import api from "../api/Client/axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

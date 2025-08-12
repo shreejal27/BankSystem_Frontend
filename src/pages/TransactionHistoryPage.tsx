@@ -10,7 +10,7 @@ import {
   TableBody,
   CircularProgress,
 } from "@mui/material";
-import axios from "../api/axios";
+import axios from "../api/Client/axios";
 import { useAuth } from "../context/AuthContext";
 
 interface Transaction {
