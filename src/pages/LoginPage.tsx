@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
@@ -10,7 +10,9 @@ import {
   Paper,
   Grid,
 } from "@mui/material";
-import api from "../api/Client/apiClientBe";
+
+import type { TLoginSchema } from "../utils/schema/TLoginSchema";
+import { useLogin } from "../queries/auth/AuthCommand";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -18,20 +20,31 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const {
+    mutate: loginMutation,
+    isSuccess: loginSuccess,
+    error: loginError,
+    data: loginData,
+  } = useLogin();
+
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
-    try {
-      const res = await api.post("api/Auth/login", { email, password });
-      const token = res.data.token;
-
-      localStorage.setItem("token", token);
-      navigate("/dashboard");
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Login failed");
-    }
+    const payload: TLoginSchema = {
+      email,
+      password,
+    };
+    loginMutation(payload);
   };
+
+  useEffect(() => {
+    if (loginSuccess && loginData) {
+      localStorage.setItem("token", loginData.token);
+      navigate("/dashboard");
+    }
+    if (loginError) {
+      setError(loginError.message || "Login failed");
+    }
+  }, [loginSuccess, loginError, loginData, navigate]);
 
   return (
     <Container maxWidth="sm">
