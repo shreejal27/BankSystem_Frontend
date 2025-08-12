@@ -13,7 +13,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
 
-import api from "../api/Client/axios";
+import api from "../api/Client/apiClientBe";
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
