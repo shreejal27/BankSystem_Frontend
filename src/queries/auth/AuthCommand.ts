@@ -21,3 +21,21 @@ async function loginUser(data: TLoginSchema): Promise<ILoginResponse> {
     const response = await apiClientBe.post<ILoginResponse>("api/Auth/login", data);
     return response.data;
 }
+
+export const useRegister = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: TRegisterSchema) => registerUser(data),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: [RegisterQueryKey] });
+        },
+        onError(error) {
+           return error;
+    }
+});
+};
+
+async function registerUser(data: TRegisterSchema): Promise<IRegisterResponse> {
+    const response = await apiClientBe.post<IRegisterResponse>("api/Auth/register", data);
+    return response.data;
+}
