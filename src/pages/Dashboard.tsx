@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -11,32 +10,15 @@ import {
   TableCell,
   TableBody,
   Avatar,
+  Grid,
 } from "@mui/material";
 
-import Grid from "@mui/material/Grid";
-
-import axios from "axios";
-import { useAuth } from "../context/AuthContext";
-import type { DashboardDto } from "../types/DashboardDto";
+import { useDashboardData } from "../queries/Dashboard/DashboardCommand";
 
 const Dashboard = () => {
-  const { token } = useAuth();
-  const [data, setData] = useState<DashboardDto | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { isLoading, isError, data: dashboardData } = useDashboardData();
 
-  useEffect(() => {
-    axios
-      .get<DashboardDto>("https://your-api-url/api/dashboard", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setData(res.data))
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
-  }, [token]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <Container sx={{ mt: 5, textAlign: "center" }}>
         <CircularProgress />
@@ -44,17 +26,23 @@ const Dashboard = () => {
     );
   }
 
-  if (!data) return null;
+  if (isError || !dashboardData) {
+    return (
+      <Container sx={{ mt: 5, textAlign: "center" }}>
+        <Typography color="error">Failed to load dashboard</Typography>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="md" sx={{ mt: 5 }}>
       <Grid container spacing={3}>
         <Grid size={12}>
           <Typography variant="h4" gutterBottom>
-            Welcome, {data.name}
+            Welcome, {dashboardData.name}
           </Typography>
           <Typography variant="subtitle1" gutterBottom color="textSecondary">
-            {data.email}
+            {dashboardData.email}
           </Typography>
         </Grid>
 
@@ -63,7 +51,7 @@ const Dashboard = () => {
             <CardContent>
               <Typography variant="h6">Total Balance</Typography>
               <Typography variant="h4" color="primary">
-                ${data.totalBalance.toFixed(2)}
+                ${dashboardData.totalBalance.toFixed(2)}
               </Typography>
             </CardContent>
           </Card>
@@ -84,7 +72,7 @@ const Dashboard = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data.recentTransactions.map((t, index) => (
+                  {dashboardData.recentTransactions.map((t, index) => (
                     <TableRow key={index}>
                       <TableCell>
                         <Avatar

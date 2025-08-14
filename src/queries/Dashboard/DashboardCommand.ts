@@ -1,18 +1,12 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { DashboardQueryKey } from "./DashboardQueryKey";
 import { apiClientBe } from "../../api/Client/apiClientBe";
 import type { IDashboardResponse } from "../../types/DashboardDto";
 
 export const useDashboardData = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: () => getDashboardData(),
-        onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: [DashboardQueryKey] });
-        },
-        onError(error) {
-           return error;
-    }
+    return useQuery({
+    queryKey: [DashboardQueryKey],
+    queryFn: getDashboardData,
 });
 };
 
