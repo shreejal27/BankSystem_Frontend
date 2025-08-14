@@ -8,7 +8,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import axios from "../api/Client/apiClientBe";
+// import axios from "../api/Client/apiClientBe";
 import { useAuth } from "../context/AuthContext";
 
 interface UserProfile {
@@ -26,28 +26,28 @@ export const AccountProfilePage = () => {
   });
   const [successOpen, setSuccessOpen] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get<UserProfile>("/users/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => setProfile(res.data))
-      .catch((err) => console.error(err));
-  }, [token]);
+  // useEffect(() => {
+  //   axios
+  //     .get<UserProfile>("/users/me", {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((res) => setProfile(res.data))
+  //     .catch((err) => console.error(err));
+  // }, [token]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSave = async () => {
-    try {
-      await axios.put("/users/me", profile, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setSuccessOpen(true);
-    } catch (err) {
-      console.error(err);
-    }
+    // try {
+    //   await axios.put("/users/me", profile, {
+    //     headers: { Authorization: `Bearer ${token}` },
+    //   });
+    //   setSuccessOpen(true);
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   return (

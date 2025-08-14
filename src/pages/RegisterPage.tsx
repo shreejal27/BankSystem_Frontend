@@ -13,7 +13,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
 
-import api from "../api/Client/apiClientBe";
+// import api from "../api/Client/apiClientBe";
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
@@ -36,18 +36,18 @@ const RegisterPage: React.FC = () => {
       return;
     }
 
-    try {
-      await api.post("/auth/register", {
-        firstName: form.firstName,
-        lastName: form.lastName,
-        email: form.email,
-        password: form.password,
-      });
-      alert("Registration successful! You can now log in.");
-      navigate("/login");
-    } catch (error) {
-      alert("Registration failed.");
-    }
+    // try {
+    //   await api.post("/auth/register", {
+    //     firstName: form.firstName,
+    //     lastName: form.lastName,
+    //     email: form.email,
+    //     password: form.password,
+    //   });
+    //   alert("Registration successful! You can now log in.");
+    //   navigate("/login");
+    // } catch (error) {
+    //   alert("Registration failed.");
+    // }
   };
 
   return (

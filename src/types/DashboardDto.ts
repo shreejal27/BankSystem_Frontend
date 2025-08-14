@@ -4,7 +4,7 @@ export interface TransactionDto {
   timestamp: string;
 }
 
-export interface DashboardDto {
+export interface IDashboardResponse {
   name: string;
   email: string;
   totalBalance: number;
