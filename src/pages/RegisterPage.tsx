@@ -18,8 +18,7 @@ import { useNavigate } from "react-router-dom";
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -73,19 +72,9 @@ const RegisterPage: React.FC = () => {
               <TextField
                 required
                 fullWidth
-                label="First Name"
-                name="firstName"
-                value={form.firstName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid size={12}>
-              <TextField
-                required
-                fullWidth
-                label="Last Name"
-                name="lastName"
-                value={form.lastName}
+                label="Name"
+                name="Name"
+                value={form.name}
                 onChange={handleChange}
               />
             </Grid>
