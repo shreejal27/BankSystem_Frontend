@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { LoginQueryKey } from "./AuthQueryKey";
+import { LoginQueryKey, RegisterQueryKey } from "./AuthQueryKey";
 import { apiClientBe } from "../../api/Client/apiClientBe";
 import type { TLoginSchema } from "../../utils/schema/TLoginSchema";
 import type { ILoginResponse } from "../../types/auth/AuthType";
+import type { TRegisterSchema } from "../../utils/schema/TRegisterSchema";
 
 export const useLogin = () => {
     const queryClient = useQueryClient();
