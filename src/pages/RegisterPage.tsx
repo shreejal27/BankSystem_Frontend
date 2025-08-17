@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -9,20 +9,34 @@ import {
   Typography,
   Box,
   Link,
+  Alert,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
+
+import type { TRegisterSchema } from "../utils/schema/TRegisterSchema";
+import { useRegister } from "../queries/auth/AuthCommand";
 
 // import api from "../api/Client/apiClientBe";
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
-    name: "",
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+
+  const [error, setError] = useState("");
+
+  const {
+    mutate: registerMutation,
+    isSuccess: registerSuccess,
+    error: registerError,
+    data: registerData,
+  } = useRegister();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -34,20 +48,22 @@ const RegisterPage: React.FC = () => {
       alert("Passwords do not match");
       return;
     }
-
-    // try {
-    //   await api.post("/auth/register", {
-    //     firstName: form.firstName,
-    //     lastName: form.lastName,
-    //     email: form.email,
-    //     password: form.password,
-    //   });
-    //   alert("Registration successful! You can now log in.");
-    //   navigate("/login");
-    // } catch (error) {
-    //   alert("Registration failed.");
-    // }
+    const payload: TRegisterSchema = {
+      name: form.fullName,
+      email: form.email,
+      password: form.password,
+    };
+    registerMutation(payload);
   };
+
+  useEffect(() => {
+    if (registerSuccess && registerData) {
+      navigate("/login");
+    }
+    if (registerError) {
+      setError(registerError.message || "Registration failed");
+    }
+  }, [registerSuccess, registerData, navigate, registerError]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -66,15 +82,18 @@ const RegisterPage: React.FC = () => {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
+
+        {error && <Alert color="error">{error}</Alert>}
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid size={12}>
               <TextField
                 required
                 fullWidth
-                label="Name"
-                name="Name"
-                value={form.name}
+                label="Full Name"
+                name="fullName"
+                value={form.fullName}
                 onChange={handleChange}
               />
             </Grid>
