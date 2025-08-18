@@ -13,6 +13,7 @@ import {
 
 import type { TLoginSchema } from "../utils/schema/TLoginSchema";
 import { useLogin } from "../queries/auth/AuthCommand";
+import axios from "axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -42,7 +43,12 @@ const LoginPage = () => {
       navigate("/dashboard");
     }
     if (loginError) {
-      setError(loginError.message || "Login failed");
+      if (axios.isAxiosError(loginError)) {
+        const apiMessage = loginError.response?.data?.message;
+        setError(apiMessage || "Login failed");
+      } else {
+        setError("Unexpected error");
+      }
     }
   }, [loginSuccess, loginError, loginData, navigate]);
 
