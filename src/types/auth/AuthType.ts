@@ -1,5 +1,7 @@
 export interface ILoginResponse {
-  token: string;
+  statusCode: number;
+  message: string;
+  data: any;
 }
 
 export interface IRegisterResponse {

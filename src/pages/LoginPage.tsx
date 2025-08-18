@@ -38,8 +38,8 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (loginSuccess && loginData) {
-      localStorage.setItem("token", loginData.token);
+    if (loginSuccess && loginData.statusCode === 200) {
+      localStorage.setItem("token", loginData.data.token);
       navigate("/dashboard");
     }
     if (loginError) {
