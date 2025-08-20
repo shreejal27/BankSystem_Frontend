@@ -9,6 +9,7 @@ import {
 import PrivateRoute from "./PrivateRoute";
 import NotFoundPage from "../pages/NotFoundPage";
 import RegisterPage from "../pages/RegisterPage";
+import AppLayout from "../components/AppLayout";
 
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
@@ -27,11 +28,14 @@ const router = createBrowserRouter(
         <Route index element={<LandingPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+
         <Route path="transfer" element={<TransferPage />} />
         <Route path="withdraw" element={<WithdrawPage />} />
         <Route path="accountprofilepage" element={<AccountProfilePage />} />
         <Route element={<PrivateRoute />}>
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route element={<AppLayout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+          </Route>
         </Route>
         <Route element={<PrivateRoute />}>
           <Route
@@ -39,7 +43,7 @@ const router = createBrowserRouter(
             element={<TransactionHistoryPage />}
           />
         </Route>
-        
+
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </>
