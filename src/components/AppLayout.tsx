@@ -1,4 +1,4 @@
-import { Box, Toolbar } from "@mui/material";
+import { Box, Container, Toolbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 
@@ -6,13 +6,20 @@ function AppLayout() {
   const role: "User" | "Admin" = "User";
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Container
+      disableGutters
+      maxWidth={false}
+      sx={{
+        display: "flex",
+        width: "100%",
+        height: "100vh",
+      }}
+    >
       <Sidebar role={role} />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />
+      <Box component="main">
         <Outlet />
       </Box>
-    </Box>
+    </Container>
   );
 }
 
