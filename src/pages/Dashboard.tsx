@@ -51,7 +51,7 @@ const Dashboard = () => {
             <CardContent>
               <Typography variant="h6">Total Balance</Typography>
               <Typography variant="h4" color="primary">
-                ${dashboardData.totalBalance.toFixed(2)}
+                Rs {dashboardData.totalBalance.toFixed(2)}
               </Typography>
             </CardContent>
           </Card>
@@ -75,22 +75,34 @@ const Dashboard = () => {
                   {dashboardData.recentTransactions.map((t, index) => (
                     <TableRow key={index}>
                       <TableCell>
-                        <Avatar
-                          sx={{
-                            bgcolor:
-                              t.type === "Withdraw" ? "#ef5350" : "#66bb6a",
-                            width: 30,
-                            height: 30,
-                            fontSize: 14,
-                          }}
-                        >
-                          {t.type[0]}
-                        </Avatar>{" "}
-                        {t.type}
+                        {t?.type ? (
+                          <>
+                            <Avatar
+                              sx={{
+                                bgcolor:
+                                  t.type === "Withdraw" ? "#ef5350" : "#66bb6a",
+                                width: 30,
+                                height: 30,
+                                fontSize: 14,
+                              }}
+                            >
+                              {t.type[0]}
+                            </Avatar>{" "}
+                            {t.type}
+                          </>
+                        ) : (
+                          "N/A"
+                        )}
                       </TableCell>
-                      <TableCell>${t.amount.toFixed(2)}</TableCell>
+
                       <TableCell>
-                        {new Date(t.timestamp).toLocaleString()}
+                        {t?.amount != null ? `$${t.amount.toFixed(2)}` : "N/A"}
+                      </TableCell>
+
+                      <TableCell>
+                        {t?.timestamp
+                          ? new Date(t.timestamp).toLocaleString()
+                          : "N/A"}
                       </TableCell>
                     </TableRow>
                   ))}
