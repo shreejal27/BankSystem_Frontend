@@ -1,6 +1,12 @@
-// src/components/Sidebar.tsx
 import React from "react";
-import { Drawer, List, ListItem, ListItemText, Toolbar } from "@mui/material";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { sidebarItemsUser, sidebarItemsAdmin } from "../config/sidebarItems";
 
@@ -28,13 +34,10 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
       <Toolbar />
       <List>
         {menuItems.map((item, index) => (
-          <ListItem
-            button
-            key={index}
-            component={Link}
-            to={item.path}
-          >
-            <ListItemText primary={item.name} />
+          <ListItem key={index} disablePadding>
+            <ListItemButton component={Link} to={item.path}>
+              <ListItemText primary={item.name} />
+            </ListItemButton>
           </ListItem>
         ))}
       </List>
