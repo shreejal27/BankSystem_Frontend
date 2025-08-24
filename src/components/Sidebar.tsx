@@ -4,6 +4,7 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Typography,
 } from "@mui/material";
@@ -38,6 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
         {menuItems.map((item, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton component={Link} to={item.path}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
