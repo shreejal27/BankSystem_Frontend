@@ -5,7 +5,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Toolbar,
+  Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { sidebarItemsUser, sidebarItemsAdmin } from "../config/sidebarItems";
@@ -31,7 +31,9 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
         },
       }}
     >
-      <Toolbar />
+      <Typography variant="h6" noWrap sx={{ padding: 2, textAlign: "center" }}>
+        Bank System
+      </Typography>
       <List>
         {menuItems.map((item, index) => (
           <ListItem key={index} disablePadding>
