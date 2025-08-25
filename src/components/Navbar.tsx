@@ -1,4 +1,3 @@
-// src/components/Navbar.tsx
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Button } from "@mui/material";
