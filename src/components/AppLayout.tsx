@@ -1,9 +1,13 @@
 import { Box, Container } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import { useTokenDecodedData } from "../hooks/useTokenDecodedData";
 
 function AppLayout() {
-  const role: "User" | "Admin" = "User";
+  const decodedData = useTokenDecodedData(localStorage.getItem("token") || "");
+
+  const role: "User" | "Admin" =
+    decodedData?.role === "Admin" ? "Admin" : "User";
 
   return (
     <Container

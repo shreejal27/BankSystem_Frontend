@@ -10,14 +10,14 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { sidebarItemsUser, sidebarItemsAdmin } from "../config/sidebarItems";
-import { useTokenDecodedData } from "../hooks/useTokenDecodedData";
+
+interface SidebarProps {
+  role: "User" | "Admin";
+}
 
 const drawerWidth = 240;
 
-const Sidebar: React.FC = () => {
-  const decodedData = useTokenDecodedData(localStorage.getItem("token") || "");
-  const role = decodedData?.role;
-
+const Sidebar: React.FC<SidebarProps> = ({ role }) => {
   const menuItems = role === "Admin" ? sidebarItemsAdmin : sidebarItemsUser;
 
   return (
