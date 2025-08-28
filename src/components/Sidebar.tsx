@@ -10,14 +10,12 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { sidebarItemsUser, sidebarItemsAdmin } from "../config/sidebarItems";
-
-interface SidebarProps {
-  role: "User" | "Admin";
-}
+import { useAuth } from "../context/AuthContext";
 
 const drawerWidth = 240;
 
-const Sidebar: React.FC<SidebarProps> = ({ role }) => {
+const Sidebar = () => {
+  const { role } = useAuth();
   const menuItems = role === "Admin" ? sidebarItemsAdmin : sidebarItemsUser;
 
   return (
