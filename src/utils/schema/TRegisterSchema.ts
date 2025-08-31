@@ -7,10 +7,7 @@ const RegisterSchema = object().shape({
     .required("Name is required"),
   email: string()
     .email("Invalid email format")
-    .required("Email is required"),
-  password: string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
+    .required("Email is required")
 });
 export default RegisterSchema;
 
