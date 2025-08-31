@@ -17,16 +17,12 @@ import { useNavigate } from "react-router-dom";
 import type { TRegisterSchema } from "../utils/schema/TRegisterSchema";
 import { useRegister } from "../queries/auth/AuthCommand";
 
-// import api from "../api/Client/apiClientBe";
-
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
     fullName: "",
     email: "",
-    password: "",
-    confirmPassword: "",
   });
 
   const [error, setError] = useState("");
@@ -44,14 +40,9 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
     const payload: TRegisterSchema = {
       name: form.fullName,
       email: form.email,
-      password: form.password,
     };
     registerMutation(payload);
   };
@@ -104,28 +95,6 @@ const RegisterPage: React.FC = () => {
                 label="Email"
                 name="email"
                 value={form.email}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid size={12}>
-              <TextField
-                required
-                fullWidth
-                label="Password"
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid size={12}>
-              <TextField
-                required
-                fullWidth
-                label="Confirm Password"
-                type="password"
-                name="confirmPassword"
-                value={form.confirmPassword}
                 onChange={handleChange}
               />
             </Grid>
