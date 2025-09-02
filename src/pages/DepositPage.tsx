@@ -9,7 +9,7 @@ import {
   Paper,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../api/Client/apiClientBe"; 
+//import apiClient from "../api/Client/apiClientBe";
 
 const DepositPage: React.FC = () => {
   const [amount, setAmount] = useState<number | "">("");
@@ -36,17 +36,17 @@ const DepositPage: React.FC = () => {
 
     try {
       setLoading(true);
-      const response = await apiClient.post("/transactions/deposit", {
-        accountNumber,
-        amount,
-      });
+      // const response = await apiClient.post("/transactions/deposit", {
+      //   accountNumber,
+      //   amount,
+      // });
 
-      if (response.data) {
-        setSuccess("Deposit successful!");
-        setAmount("");
-        setAccountNumber("");
-        setTimeout(() => navigate("/dashboard"), 1500); // redirect after success
-      }
+      // if (response.data) {
+      //   setSuccess("Deposit successful!");
+      //   setAmount("");
+      //   setAccountNumber("");
+      //   setTimeout(() => navigate("/dashboard"), 1500); // redirect after success
+      // }
     } catch (err: any) {
       setError(
         err.response?.data?.message || "Something went wrong. Please try again."

@@ -31,13 +31,13 @@ const router = createBrowserRouter(
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
 
-        <Route path="deposit" element={<DepositPage />} />
-        <Route path="withdraw" element={<WithdrawPage />} />
-        <Route path="transfer" element={<TransferPage />} />
-        <Route path="profile" element={<AccountProfilePage />} />
         <Route element={<PrivateRoute />}>
           <Route element={<AppLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="deposit" element={<DepositPage />} />
+            <Route path="withdraw" element={<WithdrawPage />} />
+            <Route path="transfer" element={<TransferPage />} />
+            <Route path="profile" element={<AccountProfilePage />} />
           </Route>
         </Route>
         <Route element={<PrivateRoute />}>
