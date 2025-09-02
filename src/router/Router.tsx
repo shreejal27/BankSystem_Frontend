@@ -14,8 +14,10 @@ import AppLayout from "../components/AppLayout";
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
-const TransferPage = lazy(() => import("../pages/TransferPage"));
+
+const DepositPage = lazy(() => import("../pages/DepositPage"));
 const WithdrawPage = lazy(() => import("../pages/WithdrawPage"));
+const TransferPage = lazy(() => import("../pages/TransferPage"));
 const TransactionHistoryPage = lazy(
   () => import("../pages/TransactionHistoryPage")
 );
@@ -29,8 +31,9 @@ const router = createBrowserRouter(
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
 
-        <Route path="transfer" element={<TransferPage />} />
+        <Route path="deposit" element={<DepositPage />} />
         <Route path="withdraw" element={<WithdrawPage />} />
+        <Route path="transfer" element={<TransferPage />} />
         <Route path="profile" element={<AccountProfilePage />} />
         <Route element={<PrivateRoute />}>
           <Route element={<AppLayout />}>
