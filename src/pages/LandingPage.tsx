@@ -7,6 +7,9 @@ import {
   AppBar,
   Toolbar,
   Stack,
+  Grid,
+  Card,
+  CardContent,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -84,6 +87,97 @@ const LandingPage: React.FC = () => {
           >
             Register
           </Button>
+        </Stack>
+      </Container>
+
+      {/* Features Section (Dummy Data) */}
+      <Container maxWidth="lg" sx={{ py: 6 }}>
+        <Typography
+          variant="h4"
+          textAlign="center"
+          fontWeight="bold"
+          gutterBottom
+        >
+          Why Choose BankSecure?
+        </Typography>
+        <Grid container spacing={4} sx={{ mt: 2 }}>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  🔒 Secure Banking
+                </Typography>
+                <Typography color="text.secondary">
+                  Advanced encryption keeps your transactions and data safe at
+                  all times.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  ⚡ Instant Transfers
+                </Typography>
+                <Typography color="text.secondary">
+                  Send and receive money instantly, anywhere in the world.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  📊 Smart Tools
+                </Typography>
+                <Typography color="text.secondary">
+                  Track spending, create budgets, and get personalized insights.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+
+      {/* Testimonials (Dummy Data) */}
+      <Container maxWidth="md" sx={{ py: 6 }}>
+        <Typography
+          variant="h4"
+          textAlign="center"
+          fontWeight="bold"
+          gutterBottom
+        >
+          What Our Customers Say
+        </Typography>
+        <Stack spacing={3} mt={3}>
+          <Card sx={{ p: 2 }}>
+            <Typography variant="body1">
+              “BankSecure has completely changed the way I manage my finances.
+              Transfers are lightning fast!”
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              textAlign="right"
+            >
+              — John Doe, Small Business Owner
+            </Typography>
+          </Card>
+          <Card sx={{ p: 2 }}>
+            <Typography variant="body1">
+              “I feel safe knowing my money is secure with BankSecure’s advanced
+              security features.”
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              textAlign="right"
+            >
+              — Sarah Smith, Teacher
+            </Typography>
+          </Card>
         </Stack>
       </Container>
 
