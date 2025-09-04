@@ -43,7 +43,6 @@ const LandingPage: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Hero Section */}
       <Container
         maxWidth="md"
         sx={{
@@ -101,7 +100,7 @@ const LandingPage: React.FC = () => {
           Why Choose BankSecure?
         </Typography>
         <Grid container spacing={4} sx={{ mt: 2 }}>
-          <Grid size={12}>
+          <Grid size={4}>
             <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -114,7 +113,7 @@ const LandingPage: React.FC = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid size={12}>
+          <Grid size={4}>
             <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -126,7 +125,7 @@ const LandingPage: React.FC = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid size={12}>
+          <Grid size={4}>
             <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -141,29 +140,28 @@ const LandingPage: React.FC = () => {
         </Grid>
       </Container>
 
-      {/* Stats Section (Dummy Data) */}
       <Box sx={{ backgroundColor: "#f5f5f5", py: 6 }}>
         <Container maxWidth="lg">
           <Grid container spacing={4} textAlign="center">
-            <Grid size={12}>
+            <Grid size={3}>
               <Typography variant="h4" color="primary" fontWeight="bold">
                 500K+
               </Typography>
               <Typography color="text.secondary">Happy Customers</Typography>
             </Grid>
-            <Grid size={12}>
+            <Grid size={3}>
               <Typography variant="h4" color="primary" fontWeight="bold">
                 99.9%
               </Typography>
               <Typography color="text.secondary">Uptime Guarantee</Typography>
             </Grid>
-            <Grid size={12}>
+            <Grid size={3}>
               <Typography variant="h4" color="primary" fontWeight="bold">
                 24/7
               </Typography>
               <Typography color="text.secondary">Customer Support</Typography>
             </Grid>
-            <Grid size={12}>
+            <Grid size={3}>
               <Typography variant="h4" color="primary" fontWeight="bold">
                 120+
               </Typography>
@@ -173,7 +171,6 @@ const LandingPage: React.FC = () => {
         </Container>
       </Box>
 
-      {/* Testimonials (Dummy Data) */}
       <Container maxWidth="md" sx={{ py: 6 }}>
         <Typography
           variant="h4"
