@@ -101,7 +101,7 @@ const LandingPage: React.FC = () => {
           Why Choose BankSecure?
         </Typography>
         <Grid container spacing={4} sx={{ mt: 2 }}>
-          <Grid item xs={12} md={4}>
+          <Grid size={12}>
             <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -114,7 +114,7 @@ const LandingPage: React.FC = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid size={12}>
             <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -126,7 +126,7 @@ const LandingPage: React.FC = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid size={12}>
             <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -145,25 +145,25 @@ const LandingPage: React.FC = () => {
       <Box sx={{ backgroundColor: "#f5f5f5", py: 6 }}>
         <Container maxWidth="lg">
           <Grid container spacing={4} textAlign="center">
-            <Grid item xs={12} md={3}>
+            <Grid size={12}>
               <Typography variant="h4" color="primary" fontWeight="bold">
                 500K+
               </Typography>
               <Typography color="text.secondary">Happy Customers</Typography>
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid size={12}>
               <Typography variant="h4" color="primary" fontWeight="bold">
                 99.9%
               </Typography>
               <Typography color="text.secondary">Uptime Guarantee</Typography>
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid size={12}>
               <Typography variant="h4" color="primary" fontWeight="bold">
                 24/7
               </Typography>
               <Typography color="text.secondary">Customer Support</Typography>
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid size={12}>
               <Typography variant="h4" color="primary" fontWeight="bold">
                 120+
               </Typography>
