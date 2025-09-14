@@ -9,11 +9,15 @@ import {
   Alert,
   Paper,
   Grid,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 
 import type { TLoginSchema } from "../utils/schema/TLoginSchema";
 import { useLogin } from "../queries/auth/AuthCommand";
 import axios from "axios";
+
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -52,6 +56,12 @@ const LoginPage = () => {
     }
   }, [loginSuccess, loginError, loginData, navigate]);
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ padding: 4, marginTop: 10 }}>
@@ -75,10 +85,19 @@ const LoginPage = () => {
             fullWidth
             label="Password"
             margin="normal"
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleTogglePassword} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button
             fullWidth
