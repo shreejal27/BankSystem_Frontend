@@ -23,20 +23,10 @@ const LandingPage: React.FC = () => {
             BankSecure
           </Typography>
           <Stack direction="row" spacing={2}>
-            <Button
-              component={RouterLink}
-              to="/login"
-              color="primary"
-              variant="text"
-            >
+            <Button component={RouterLink} to="/login" color="primary">
               Login
             </Button>
-            <Button
-              component={RouterLink}
-              to="/register"
-              color="primary"
-              variant="outlined"
-            >
+            <Button component={RouterLink} to="/register" color="primary">
               Register
             </Button>
           </Stack>
