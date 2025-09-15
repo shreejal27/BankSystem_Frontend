@@ -7,7 +7,7 @@ import {
   Grid,
   Snackbar,
 } from "@mui/material";
-import axios from "../api/Client/apiClientBe";
+//import axios from "../api/Client/apiClientBe";
 import { useState } from "react";
 
 interface TransferForm {
@@ -22,7 +22,7 @@ const TransferPage = () => {
 
   const onSubmit = async (data: TransferForm) => {
     try {
-      await axios.post("/transaction/transfer", data);
+      // await axios.post("/transaction/transfer", data);
     } catch (error) {
       console.error("Transfer failed", error);
     }
