@@ -7,7 +7,7 @@ import {
   Grid,
   Snackbar,
 } from "@mui/material";
-import axios from "../api/Client/apiClientBe";
+//import axios from "../api/Client/apiClientBe";
 import { useState } from "react";
 
 interface WithdrawForm {
@@ -21,7 +21,7 @@ export const WithdrawPage = () => {
 
   const onSubmit = async (data: WithdrawForm) => {
     try {
-      await axios.post("transaction/withdraw", data);
+      //await axios.post("transaction/withdraw", data);
     } catch (error) {
       console.error("Withdraw failed", error);
     }
