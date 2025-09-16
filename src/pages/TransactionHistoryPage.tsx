@@ -10,7 +10,7 @@ import {
   TableBody,
   CircularProgress,
 } from "@mui/material";
-import axios from "../api/Client/apiClientBe";
+//import axios from "../api/Client/apiClientBe";
 import { useAuth } from "../context/AuthContext";
 
 interface Transaction {
@@ -25,16 +25,16 @@ interface Transaction {
 export const TransactionHistoryPage = () => {
   const { token } = useAuth();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios
-      .get<Transaction[]>(`/transactions/account/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => setTransactions(res.data))
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
+    // axios;
+    // .get<Transaction[]>(`/transactions/account/me`, {
+    //   headers: { Authorization: `Bearer ${token}` },
+    // })
+    // .then((res) => setTransactions(res.data))
+    // .catch((err) => console.error(err))
+    // .finally(() => setLoading(false));
   }, [token]);
 
   if (loading) {
