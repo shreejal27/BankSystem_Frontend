@@ -37,11 +37,9 @@ const router = createBrowserRouter(
             <Route path="deposit" element={<DepositPage />} />
             <Route path="withdraw" element={<WithdrawPage />} />
             <Route path="transfer" element={<TransferPage />} />
+            <Route path="transactions" element={<TransactionHistoryPage />} />
             <Route path="profile" element={<AccountProfilePage />} />
           </Route>
-        </Route>
-        <Route element={<PrivateRoute />}>
-          <Route path="transactions" element={<TransactionHistoryPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
