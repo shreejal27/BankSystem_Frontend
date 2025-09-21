@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import NotFoundPage from "../pages/NotFoundPage";
 import RegisterPage from "../pages/RegisterPage";
 import AppLayout from "../components/AppLayout";
+import ResetPasswordPage from "../pages/ResetPasswordPage";
 
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
         <Route index element={<LandingPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="reset-password" element={<ResetPasswordPage />} />
 
         <Route element={<PrivateRoute />}>
           <Route element={<AppLayout />}>
