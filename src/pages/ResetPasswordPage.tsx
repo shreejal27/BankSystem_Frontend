@@ -30,7 +30,7 @@ const ResetPasswordPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!temporaryPassword || !newPassword || !confirmPassword) {
+    if (!newPassword || !confirmPassword) {
       setSnackbar({
         open: true,
         message: "All fields are required",
