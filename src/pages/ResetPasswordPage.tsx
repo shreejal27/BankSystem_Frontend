@@ -14,7 +14,6 @@ import axios from "axios";
 
 const ResetPasswordPage: React.FC = () => {
   const navigate = useNavigate();
-  const [temporaryPassword, setTemporaryPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -51,7 +50,6 @@ const ResetPasswordPage: React.FC = () => {
     try {
       setLoading(true);
       await axios.post("http://localhost:5131/auth/reset-password", {
-        tempPassword: temporaryPassword,
         newPassword: newPassword,
       });
       setSnackbar({
@@ -60,7 +58,6 @@ const ResetPasswordPage: React.FC = () => {
         severity: "success",
       });
 
-      // redirect after a short delay
       setTimeout(() => navigate("/login"), 2000);
     } catch (error: any) {
       setSnackbar({
@@ -83,13 +80,6 @@ const ResetPasswordPage: React.FC = () => {
         onSubmit={handleSubmit}
         sx={{ display: "flex", flexDirection: "column", gap: 2 }}
       >
-        <TextField
-          label="Temporary Password"
-          type="password"
-          value={temporaryPassword}
-          onChange={(e) => setTemporaryPassword(e.target.value)}
-          required
-        />
         <TextField
           label="New Password"
           type="password"
