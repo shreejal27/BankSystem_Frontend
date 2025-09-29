@@ -10,6 +10,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { sidebarItemsUser, sidebarItemsAdmin } from "../config/sidebarItems";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -18,6 +19,14 @@ const Sidebar = () => {
   const menuItems = role === "Admin" ? sidebarItemsAdmin : sidebarItemsUser;
 
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleItemClick = (item: any) => {
+    if (item.name === "Logout") {
+      localStorage.removeItem("token");
+    }
+    navigate(item.path);
+  };
 
   return (
     <Drawer
@@ -43,6 +52,7 @@ const Sidebar = () => {
                 component={Link}
                 to={item.path}
                 selected={isActive}
+                onClick={() => handleItemClick(item)}
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.name} />
