@@ -8,6 +8,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Saving from "@mui/icons-material/Savings";
 import Payment from "@mui/icons-material/Payments";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const sidebarItemsUser = [
   { name: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
@@ -17,6 +18,7 @@ export const sidebarItemsUser = [
   { name: "Transfer", path: "/transfer", icon: <SwapHorizIcon /> },
   { name: "Transactions", path: "/transactions", icon: <HistoryIcon /> },
   { name: "Profile", path: "/profile", icon: <AccountCircleIcon /> },
+  { name: "Logout", path: "/login", icon: <LogoutIcon /> },
 ];
 
 export const sidebarItemsAdmin = [
@@ -26,4 +28,5 @@ export const sidebarItemsAdmin = [
   { name: "Transactions", path: "/transactions", icon: <HistoryIcon /> },
   { name: "Reports", path: "/reports", icon: <BarChartIcon /> },
   { name: "Settings", path: "/settings", icon: <SettingsIcon /> },
+  { name: "Logout", path: "/login", icon: <LogoutIcon /> },
 ];
