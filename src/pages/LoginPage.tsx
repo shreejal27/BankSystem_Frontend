@@ -18,12 +18,14 @@ import { useLogin } from "../queries/auth/AuthCommand";
 import axios from "axios";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useAuth } from "../context/AuthContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { setToken } = useAuth();
 
   const {
     mutate: loginMutation,
@@ -43,7 +45,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (loginSuccess && loginData.statusCode === 200) {
-      localStorage.setItem("token", loginData.data.token);
+      setToken(loginData.data.token);
       navigate("/dashboard");
     }
     if (loginError) {
