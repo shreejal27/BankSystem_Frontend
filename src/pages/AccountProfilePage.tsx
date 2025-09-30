@@ -74,13 +74,6 @@ export const AccountProfilePage = () => {
           onChange={handleChange}
           fullWidth
         />
-        <TextField
-          label="Phone Number"
-          name="phoneNumber"
-          value={profile.phoneNumber}
-          onChange={handleChange}
-          fullWidth
-        />
         <Button variant="contained" onClick={handleSave}>
           Save Changes
         </Button>
