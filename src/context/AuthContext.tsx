@@ -6,10 +6,12 @@ interface AuthContextType {
   setToken: (token: string | null) => void;
   isAuthenticated: boolean;
   logout: () => void;
-  role: "User" | "Admin" | null; 
+  role: "User" | "Admin" | null;
+  getUserId: () => string | null;
 }
 
 interface DecodedToken {
+  sub: string;
   role: "User" | "Admin";
 }
 
@@ -19,6 +21,7 @@ const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   logout: () => {},
   role: null,
+  getUserId: () => null,
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -35,6 +38,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       localStorage.removeItem("token");
     }
     setTokenState(newToken);
+  };
+
+  const getUserId = (): string | null => {
+    if (!token) return null;
+    try {
+      const decoded = jwtDecode<DecodedToken>(token);
+      return decoded.sub;
+    } catch {
+      return null;
+    }
   };
 
   const isAuthenticated = !!token;
@@ -54,7 +67,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <AuthContext.Provider value={{ token, setToken, isAuthenticated, logout, role }}>
+    <AuthContext.Provider
+      value={{ token, setToken, isAuthenticated, logout, role, getUserId }}
+    >
       {children}
     </AuthContext.Provider>
   );

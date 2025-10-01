@@ -19,6 +19,10 @@ interface UserProfile {
 
 export const AccountProfilePage = () => {
   const { token } = useAuth();
+  const { getUserId } = useAuth();
+  const userId = getUserId();
+  console.log("User ID:", userId);
+
   const [profile, setProfile] = useState<UserProfile>({
     fullName: "",
     email: "",
