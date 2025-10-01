@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 
 import { useAuth } from "../context/AuthContext";
+import { useGetUserProfileData } from "../queries/User/UserCommand";
 
 interface UserProfile {
   fullName: string;
@@ -20,7 +21,11 @@ interface UserProfile {
 export const AccountProfilePage = () => {
   const { token } = useAuth();
   const { getUserId } = useAuth();
-  const userId = getUserId();
+  const userId = getUserId() || "";
+
+  const { isLoading, isError, data: userData } = useGetUserProfileData(userId);
+
+  console.log("User Data:", userData);
 
   const [profile, setProfile] = useState<UserProfile>({
     fullName: "",
