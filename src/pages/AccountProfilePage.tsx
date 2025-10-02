@@ -10,7 +10,10 @@ import {
 } from "@mui/material";
 
 import { useAuth } from "../context/AuthContext";
-import { useGetUserProfileData } from "../queries/User/UserCommand";
+import {
+  useGetUserProfileData,
+  useUpdateUser,
+} from "../queries/User/UserCommand";
 
 interface UserProfile {
   fullName: string;
@@ -51,15 +54,10 @@ export const AccountProfilePage = () => {
     setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const { mutate: updateUser } = useUpdateUser(userId);
+
   const handleSave = async () => {
-    // try {
-    //   await axios.put("/users/me", profile, {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //   });
-    //   setSuccessOpen(true);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    updateUser({ name: profile.fullName, email: profile.email });
   };
 
   return (
