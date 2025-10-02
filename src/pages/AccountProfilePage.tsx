@@ -15,7 +15,6 @@ import { useGetUserProfileData } from "../queries/User/UserCommand";
 interface UserProfile {
   fullName: string;
   email: string;
-  phoneNumber: string;
 }
 
 export const AccountProfilePage = () => {
@@ -25,13 +24,18 @@ export const AccountProfilePage = () => {
 
   const { isLoading, isError, data: userData } = useGetUserProfileData(userId);
 
-  console.log("User Data:", userData);
-
   const [profile, setProfile] = useState<UserProfile>({
     fullName: "",
     email: "",
-    phoneNumber: "",
   });
+
+  useEffect(() => {
+    setProfile({
+      fullName: userData?.name || "",
+      email: userData?.email || "",
+    });
+  }, [userData]);
+
   const [successOpen, setSuccessOpen] = useState(false);
 
   // useEffect(() => {
