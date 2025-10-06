@@ -41,15 +41,6 @@ export const AccountProfilePage = () => {
 
   const [successOpen, setSuccessOpen] = useState(false);
 
-  // useEffect(() => {
-  //   axios
-  //     .get<UserProfile>("/users/me", {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then((res) => setProfile(res.data))
-  //     .catch((err) => console.error(err));
-  // }, [token]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
