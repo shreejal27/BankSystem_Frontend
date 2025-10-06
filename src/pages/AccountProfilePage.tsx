@@ -21,11 +21,10 @@ interface UserProfile {
 }
 
 export const AccountProfilePage = () => {
-  const { token } = useAuth();
   const { getUserId } = useAuth();
   const userId = getUserId() || "";
 
-  const { isLoading, isError, data: userData } = useGetUserProfileData(userId);
+  const { data: userData } = useGetUserProfileData(userId);
 
   const [profile, setProfile] = useState<UserProfile>({
     fullName: "",
