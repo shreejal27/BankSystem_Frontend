@@ -22,7 +22,7 @@ export const sidebarItemsUser = [
 ];
 
 export const sidebarItemsAdmin = [
-  { name: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
+  { name: "Dashboard", path: "/adminDashboard", icon: <DashboardIcon /> },
   { name: "Manage Users", path: "/users", icon: <PeopleIcon /> },
   { name: "Manage Accounts", path: "/accounts", icon: <AccountBalanceIcon /> },
   { name: "Transactions", path: "/transactions", icon: <HistoryIcon /> },
