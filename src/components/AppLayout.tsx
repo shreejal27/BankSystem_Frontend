@@ -14,7 +14,15 @@ function AppLayout() {
       }}
     >
       <Sidebar />
-      <Box component="main">
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 1,
+          backgroundColor: "#f5f6fa",
+          minHeight: "100vh",
+        }}
+      >
         <Outlet />
       </Box>
     </Container>
