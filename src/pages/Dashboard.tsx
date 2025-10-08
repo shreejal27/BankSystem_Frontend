@@ -36,10 +36,13 @@ const Dashboard = () => {
 
   return (
     <Container maxWidth="md" sx={{ mt: 5 }}>
+      <Typography variant="h4" gutterBottom>
+        Dashboard
+      </Typography>
       <Grid container spacing={3}>
         <Grid size={12}>
           <Typography variant="h4" gutterBottom>
-            Welcome, {dashboardData.name}
+            Welcome Back, {dashboardData.name}
           </Typography>
         </Grid>
 

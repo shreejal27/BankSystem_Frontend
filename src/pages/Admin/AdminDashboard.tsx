@@ -42,7 +42,7 @@ const AdminDashboard = () => {
         Admin Dashboard
       </Typography>
       <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-        Welcome back, Admin! Here's an overview of the banking system.
+        Welcome back, Admin!
       </Typography>
 
       {/* Summary Cards */}
