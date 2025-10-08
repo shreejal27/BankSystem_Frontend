@@ -41,9 +41,6 @@ const Dashboard = () => {
           <Typography variant="h4" gutterBottom>
             Welcome, {dashboardData.name}
           </Typography>
-          <Typography variant="subtitle1" gutterBottom color="textSecondary">
-            {dashboardData.email}
-          </Typography>
         </Grid>
 
         <Grid size={12}>
