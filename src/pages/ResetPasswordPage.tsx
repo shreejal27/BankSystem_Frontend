@@ -47,27 +47,27 @@ const ResetPasswordPage: React.FC = () => {
       return;
     }
 
-    try {
-      setLoading(true);
-      await axios.post("http://localhost:5131/auth/reset-password", {
-        newPassword: newPassword,
-      });
-      setSnackbar({
-        open: true,
-        message: "Password reset successfully!",
-        severity: "success",
-      });
+    // try {
+    //   setLoading(true);
+    //   await axios.post("http://localhost:5131/auth/reset-password", {
+    //     newPassword: newPassword,
+    //   });
+    //   setSnackbar({
+    //     open: true,
+    //     message: "Password reset successfully!",
+    //     severity: "success",
+    //   });
 
-      setTimeout(() => navigate("/login"), 2000);
-    } catch (error: any) {
-      setSnackbar({
-        open: true,
-        message: error.response?.data?.message || "Failed to reset password",
-        severity: "error",
-      });
-    } finally {
-      setLoading(false);
-    }
+    //   setTimeout(() => navigate("/login"), 2000);
+    // } catch (error: any) {
+    //   setSnackbar({
+    //     open: true,
+    //     message: error.response?.data?.message || "Failed to reset password",
+    //     severity: "error",
+    //   });
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (
