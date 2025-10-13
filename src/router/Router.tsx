@@ -13,7 +13,7 @@ import AppLayout from "../components/AppLayout";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 
 const AdminDashboard = lazy(() => import("../pages/Admin/AdminDashboard"));
-
+const Users = lazy(() => import("../pages/Admin/Users"));
 
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
@@ -40,6 +40,7 @@ const router = createBrowserRouter(
           <Route element={<AppLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="adminDashboard" element={<AdminDashboard />} />
+            <Route path="users" element={<Users />} />
             <Route path="deposit" element={<DepositPage />} />
             <Route path="withdraw" element={<WithdrawPage />} />
             <Route path="transfer" element={<TransferPage />} />

@@ -10,7 +10,7 @@ import {
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import BlockIcon from "@mui/icons-material/Block";
-import axios from "axios";
+// import axios from "axios";
 
 interface IUser {
   id: string;
@@ -25,20 +25,41 @@ const Users: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Fetch users on mount
+  // ✅ Load dummy users on mount (for testing layout)
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get<IUser[]>("/api/users");
-        setUsers(response.data);
-        setFilteredUsers(response.data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUsers();
+    const dummyData: IUser[] = [
+      {
+        id: "1",
+        fullName: "John Doe",
+        email: "john@example.com",
+        status: "Active",
+      },
+      {
+        id: "2",
+        fullName: "Jane Smith",
+        email: "jane@example.com",
+        status: "Inactive",
+      },
+      {
+        id: "3",
+        fullName: "Robert Brown",
+        email: "robert@example.com",
+        status: "Active",
+      },
+      {
+        id: "4",
+        fullName: "Emily Davis",
+        email: "emily@example.com",
+        status: "Active",
+      },
+    ];
+
+    // simulate small delay for loading spinner
+    setTimeout(() => {
+      setUsers(dummyData);
+      setFilteredUsers(dummyData);
+      setLoading(false);
+    }, 800);
   }, []);
 
   // Search filter
@@ -53,19 +74,13 @@ const Users: React.FC = () => {
   // Edit button handler
   const handleEdit = (id: string) => {
     console.log("Edit user:", id);
-    // navigate(`/admin/users/edit/${id}`) or open dialog
   };
 
   // Deactivate user handler
-  const handleDeactivate = async (id: string) => {
-    try {
-      await axios.patch(`/api/users/${id}/deactivate`);
-      setUsers((prev) =>
-        prev.map((u) => (u.id === id ? { ...u, status: "Inactive" } : u))
-      );
-    } catch (error) {
-      console.error("Failed to deactivate user:", error);
-    }
+  const handleDeactivate = (id: string) => {
+    setUsers((prev) =>
+      prev.map((u) => (u.id === id ? { ...u, status: "Inactive" } : u))
+    );
   };
 
   const columns: GridColDef[] = [
@@ -77,7 +92,7 @@ const Users: React.FC = () => {
       headerName: "Actions",
       width: 150,
       sortable: false,
-      renderCell: (params: { row: { id: string; status: string } }) => (
+      renderCell: (params) => (
         <>
           <Tooltip title="Edit">
             <IconButton
@@ -124,7 +139,7 @@ const Users: React.FC = () => {
         <DataGrid
           rows={filteredUsers}
           columns={columns}
-          getRowId={(row: { id: any }) => row.id}
+          getRowId={(row) => row.id}
           autoHeight
           disableRowSelectionOnClick
           sx={{

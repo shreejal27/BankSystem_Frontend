@@ -1,0 +1,1 @@
+export const GetAllUserQueryKey = "GetAllUserQueryKey";
