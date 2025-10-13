@@ -3,14 +3,14 @@ import { GetAllUserQueryKey } from "./UserQueryKey";
 import { apiClientBe } from "../../api/Client/apiClientBe";
 import type { IGetAllUserResponse } from "../../types/UserDto";
 
-export const useGetUserProfileData = () => {
+export const useGetAllUsers = () => {
     return useQuery({
     queryKey: [GetAllUserQueryKey],
-    queryFn: ()=> getUserProfileData(),
+    queryFn: ()=> getAllUsers(),
 });
 };
 
-async function getUserProfileData(): Promise<IGetAllUserResponse> { 
+async function getAllUsers(): Promise<IGetAllUserResponse> { 
     const response = await apiClientBe.get<IGetAllUserResponse>("api/User" );
     return response.data;
 }

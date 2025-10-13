@@ -10,7 +10,7 @@ import {
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import BlockIcon from "@mui/icons-material/Block";
-// import axios from "axios";
+import { useGetAllUsers } from "../../queries/Admin/UserCommand";
 
 interface IUser {
   id: string;
@@ -22,47 +22,23 @@ interface IUser {
 const Users: React.FC = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // ✅ Load dummy users on mount (for testing layout)
+  const { data: allUserData, isLoading } = useGetAllUsers();
+
   useEffect(() => {
-    const dummyData: IUser[] = [
-      {
-        id: "1",
-        fullName: "John Doe",
-        email: "john@example.com",
-        status: "Active",
-      },
-      {
-        id: "2",
-        fullName: "Jane Smith",
-        email: "jane@example.com",
-        status: "Inactive",
-      },
-      {
-        id: "3",
-        fullName: "Robert Brown",
-        email: "robert@example.com",
-        status: "Active",
-      },
-      {
-        id: "4",
-        fullName: "Emily Davis",
-        email: "emily@example.com",
-        status: "Active",
-      },
-    ];
+    if (allUserData && Array.isArray(allUserData)) {
+      const formatted: IUser[] = allUserData.map((u: any) => ({
+        id: u.id,
+        fullName: u.name, 
+        email: u.email,
+        status: u.isActive ? "Active" : "Inactive",
+      }));
+      setUsers(formatted);
+      setFilteredUsers(formatted);
+    }
+  }, [allUserData]);
 
-    // simulate small delay for loading spinner
-    setTimeout(() => {
-      setUsers(dummyData);
-      setFilteredUsers(dummyData);
-      setLoading(false);
-    }, 800);
-  }, []);
-
-  // Search filter
   useEffect(() => {
     const lower = searchTerm.toLowerCase();
     const filtered = users.filter((u) =>
@@ -71,12 +47,10 @@ const Users: React.FC = () => {
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
 
-  // Edit button handler
   const handleEdit = (id: string) => {
     console.log("Edit user:", id);
   };
 
-  // Deactivate user handler
   const handleDeactivate = (id: string) => {
     setUsers((prev) =>
       prev.map((u) => (u.id === id ? { ...u, status: "Inactive" } : u))
@@ -131,7 +105,7 @@ const Users: React.FC = () => {
         sx={{ mb: 2, width: "300px" }}
       />
 
-      {loading ? (
+      {isLoading ? (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <CircularProgress />
         </Box>
