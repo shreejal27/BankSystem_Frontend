@@ -37,7 +37,6 @@ const AdminDashboard = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 5 }}>
-      {/* Header */}
       <Typography variant="h4" gutterBottom>
         Admin Dashboard
       </Typography>
@@ -45,7 +44,6 @@ const AdminDashboard = () => {
         Welcome back, Admin!
       </Typography>
 
-      {/* Summary Cards */}
       <Grid container columns={12} spacing={2} sx={{ width: "100%" }}>
         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <Card sx={{ backgroundColor: "#e3f2fd" }}>
@@ -96,7 +94,7 @@ const AdminDashboard = () => {
         </Grid>
       </Grid>
 
-      {/* Users List */}
+    
       <Box sx={{ mt: 4 }}>
         <Card>
           <CardContent>
@@ -127,7 +125,6 @@ const AdminDashboard = () => {
         </Card>
       </Box>
 
-      {/* Recent Transactions */}
       <Box sx={{ mt: 4 }}>
         <Card>
           <CardContent>

@@ -30,7 +30,7 @@ const Users: React.FC = () => {
     if (allUserData && Array.isArray(allUserData)) {
       const formatted: IUser[] = allUserData.map((u: any) => ({
         id: u.id,
-        fullName: u.name, 
+        fullName: u.name,
         email: u.email,
         status: u.isActive ? "Active" : "Inactive",
       }));
@@ -48,7 +48,7 @@ const Users: React.FC = () => {
   }, [searchTerm, users]);
 
   const handleEdit = (id: string) => {
-    console.log("Edit user:", id);
+    // console.log("Edit user:", id);
   };
 
   const handleDeactivate = (id: string) => {
@@ -114,7 +114,6 @@ const Users: React.FC = () => {
           rows={filteredUsers}
           columns={columns}
           getRowId={(row) => row.id}
-          autoHeight
           disableRowSelectionOnClick
           sx={{
             "& .MuiDataGrid-columnHeaders": {
