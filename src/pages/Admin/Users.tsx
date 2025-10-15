@@ -11,6 +11,7 @@ import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import BlockIcon from "@mui/icons-material/Block";
 import { useGetAllUsers } from "../../queries/Admin/UserCommand";
+import { useNavigate } from "react-router-dom";
 
 interface IUser {
   id: string;
@@ -23,6 +24,7 @@ const Users: React.FC = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const { data: allUserData, isLoading } = useGetAllUsers();
 
@@ -48,7 +50,7 @@ const Users: React.FC = () => {
   }, [searchTerm, users]);
 
   const handleEdit = (id: string) => {
-    // console.log("Edit user:", id);
+    navigate(`users/edit/${id}`);
   };
 
   const handleDeactivate = (id: string) => {

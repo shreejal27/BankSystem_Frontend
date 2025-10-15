@@ -18,7 +18,7 @@ interface IUser {
 }
 
 const EditUser: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [user, setUser] = useState<IUser | null>(null);

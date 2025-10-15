@@ -14,6 +14,7 @@ import ResetPasswordPage from "../pages/ResetPasswordPage";
 
 const AdminDashboard = lazy(() => import("../pages/Admin/AdminDashboard"));
 const Users = lazy(() => import("../pages/Admin/Users"));
+const EditUser = lazy(() => import("../pages/Admin/EditUsers"));
 
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
@@ -38,9 +39,11 @@ const router = createBrowserRouter(
 
         <Route element={<PrivateRoute />}>
           <Route element={<AppLayout />}>
-            <Route path="dashboard" element={<Dashboard />} />
             <Route path="adminDashboard" element={<AdminDashboard />} />
             <Route path="users" element={<Users />} />
+            <Route path="users/edit/:id" element={<EditUser />} />
+
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="deposit" element={<DepositPage />} />
             <Route path="withdraw" element={<WithdrawPage />} />
             <Route path="transfer" element={<TransferPage />} />
