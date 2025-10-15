@@ -50,7 +50,7 @@ const Users: React.FC = () => {
   }, [searchTerm, users]);
 
   const handleEdit = (id: string) => {
-    navigate(`users/edit/${id}`);
+    navigate(`edit/${id}`);
   };
 
   const handleDeactivate = (id: string) => {
