@@ -8,7 +8,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useGetUserProfileData } from "../../queries/Admin/UserCommand";
 
 interface IUser {
   id: string;
@@ -18,46 +18,25 @@ interface IUser {
 }
 
 const EditUser: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // id is used here as it is defined in the route
   const navigate = useNavigate();
+  const { data: userData } = useGetUserProfileData(id ?? "");
 
   const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  // ✅ Fetch user by ID
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const response = await axios.get<IUser>(`/api/users/${id}`);
-  //       setUser(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching user:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchUser();
-  // }, [id]);
-
-  // ✅ Handle form changes
-  // const handleChange = (field: keyof IUser, value: string) => {
-  //   setUser((prev) => (prev ? { ...prev, [field]: value } : prev));
-  // };
-
-  // ✅ Save updates
-  // const handleSave = async () => {
-  //   if (!user) return;
-  //   try {
-  //     setSaving(true);
-  //     await axios.put(`/api/users/${user.id}`, user);
-  //     navigate("/admin/users"); // Go back after saving
-  //   } catch (error) {
-  //     console.error("Error updating user:", error);
-  //   } finally {
-  //     setSaving(false);
-  //   }
-  // };
+  useEffect(() => {
+    if (id && userData) {
+      setUser({
+        id: id,
+        fullName: userData.name || "",
+        email: userData.email || "",
+        status: "Active",
+      });
+      setLoading(false);
+    }
+  }, [id, userData]);
 
   if (loading) {
     return (
@@ -127,12 +106,7 @@ const EditUser: React.FC = () => {
         >
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          // onClick={handleSave}
-          disabled={saving}
-        >
+        <Button variant="contained" color="primary" disabled={saving}>
           {saving ? "Saving..." : "Save Changes"}
         </Button>
       </Box>
