@@ -9,20 +9,16 @@ import {
 } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetUserProfileData } from "../../queries/Admin/UserCommand";
-
-interface IUser {
-  id: string;
-  fullName: string;
-  email: string;
-  status: "Active" | "Inactive";
-}
+import type { IGetUserProfileAdminResponse } from "../../types/UserDto";
 
 const EditUser: React.FC = () => {
   const { id } = useParams(); // id is used here as it is defined in the route
   const navigate = useNavigate();
   const { data: userData } = useGetUserProfileData(id ?? "");
 
-  const [user, setUser] = useState<IUser | null>(null);
+  console.log("User Data:", userData);
+
+  const [user, setUser] = useState<IGetUserProfileAdminResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -30,9 +26,11 @@ const EditUser: React.FC = () => {
     if (id && userData) {
       setUser({
         id: id,
-        fullName: userData.name || "",
+        name: userData.name || "",
         email: userData.email || "",
-        status: "Active",
+        isActive: userData.isActive,
+        role: userData.role,
+        createdAt: userData.createdAt,
       });
       setLoading(false);
     }
@@ -74,7 +72,7 @@ const EditUser: React.FC = () => {
         label="Full Name"
         fullWidth
         margin="normal"
-        value={user.fullName}
+        value={user.name}
         // onChange={(e) => handleChange("fullName", e.target.value)}
       />
 
@@ -91,12 +89,29 @@ const EditUser: React.FC = () => {
         label="Status"
         fullWidth
         margin="normal"
-        value={user.status}
+        value={user.isActive}
         // onChange={(e) => handleChange("status", e.target.value)}
       >
-        <MenuItem value="Active">Active</MenuItem>
-        <MenuItem value="Inactive">Inactive</MenuItem>
+        <MenuItem value="true">Active</MenuItem>
+        <MenuItem value="false">Inactive</MenuItem>
       </TextField>
+
+      <TextField
+        label="Role"
+        fullWidth
+        margin="normal"
+        value={user.role}
+        // onChange={(e) => handleChange("email", e.target.value)}
+      />
+
+      <TextField
+        label="Registered Date"
+        fullWidth
+        margin="normal"
+        value={user.createdAt}
+        disabled
+        // onChange={(e) => handleChange("email", e.target.value)}
+      />
 
       <Box sx={{ mt: 3, display: "flex", justifyContent: "space-between" }}>
         <Button

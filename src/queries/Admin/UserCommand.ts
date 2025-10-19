@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { GetAllUserQueryKey } from "./UserQueryKey";
 import { apiClientBe } from "../../api/Client/apiClientBe";
-import type { IGetAllUserResponse, IGetUserProfileResponse } from "../../types/UserDto";
+import type { IGetAllUserResponse, IGetUserProfileAdminResponse } from "../../types/UserDto";
 import { GetUserQueryKey } from "../User/UserQueryKey";
 
 export const useGetAllUsers = () => {
@@ -23,7 +23,7 @@ export const useGetUserProfileData = (id:string ) => {
 });
 };
 
-async function getUserProfileData(id: string): Promise<IGetUserProfileResponse> { 
-    const response = await apiClientBe.get<IGetUserProfileResponse>("api/User/"+ id);
+async function getUserProfileData(id: string): Promise<IGetUserProfileAdminResponse> { 
+    const response = await apiClientBe.get<IGetUserProfileAdminResponse>("api/User/"+ id);
     return response.data;
 }
