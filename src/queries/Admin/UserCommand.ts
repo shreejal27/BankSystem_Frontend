@@ -32,7 +32,7 @@ export const useUpdateUser = (id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: { name: string; email: string; isActive: boolean; role: number }) => updateUser(id, payload),
+    mutationFn: (payload: { name: string; email: string; role: number }) => updateUser(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [UpdateUserKey] });
     },
@@ -44,7 +44,7 @@ export const useUpdateUser = (id: string) => {
   });
 };
 
-async function updateUser(id: string, payload: { name: string; email: string; isActive: boolean; role: number }): Promise<IGetUserProfileAdminResponse> {
+async function updateUser(id: string, payload: { name: string; email: string; role: number }): Promise<IGetUserProfileAdminResponse> {
   const response = await apiClientBe.put<IGetUserProfileAdminResponse>(`api/User/${id}`,payload);
   return response.data;
 }

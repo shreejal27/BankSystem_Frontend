@@ -5,7 +5,6 @@ import {
   TextField,
   Button,
   CircularProgress,
-  MenuItem,
 } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -33,7 +32,6 @@ const EditUser: React.FC = () => {
       {
         name: user?.name ?? "",
         email: user?.email ?? "",
-        isActive: user?.isActive ?? false,
         role: user?.role ?? 1,
       },
       {
@@ -121,18 +119,6 @@ const EditUser: React.FC = () => {
         value={user.email}
         onChange={(e) => handleChange("email", e.target.value)}
       />
-
-      <TextField
-        select
-        label="Status"
-        fullWidth
-        margin="normal"
-        value={user.isActive}
-        onChange={(e) => handleChange("isActive", e.target.value)}
-      >
-        <MenuItem value="true">Active</MenuItem>
-        <MenuItem value="false">Inactive</MenuItem>
-      </TextField>
 
       <TextField
         label="Role"
