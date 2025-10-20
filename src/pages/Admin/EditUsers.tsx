@@ -8,7 +8,10 @@ import {
   MenuItem,
 } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
-import { useGetUserProfileData } from "../../queries/Admin/UserCommand";
+import {
+  useGetUserProfileData,
+  useUpdateUser,
+} from "../../queries/Admin/UserCommand";
 import type { IGetUserProfileAdminResponse } from "../../types/UserDto";
 
 const EditUser: React.FC = () => {
@@ -21,6 +24,27 @@ const EditUser: React.FC = () => {
   const [user, setUser] = useState<IGetUserProfileAdminResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+
+  const { mutate: updateUser } = useUpdateUser(id ?? "");
+
+  const handleSave = async () => {
+    setSaving(true);
+    updateUser(
+      {
+        name: user?.name ?? "",
+        email: user?.email ?? "",
+        isActive: user?.isActive ?? false,
+        role: user?.role ?? 1,
+      },
+      {
+        onSuccess: () => {
+          setSaving(false);
+          navigate(-1);
+        },
+        onError: () => setSaving(false),
+      }
+    );
+  };
 
   useEffect(() => {
     if (id && userData) {
@@ -52,6 +76,20 @@ const EditUser: React.FC = () => {
     );
   }
 
+  const handleChange = (
+    field: keyof IGetUserProfileAdminResponse,
+    value: string | boolean
+  ) => {
+    setUser((prev) =>
+      prev
+        ? {
+            ...prev,
+            [field]: value,
+          }
+        : prev
+    );
+  };
+
   return (
     <Box
       sx={{
@@ -73,7 +111,7 @@ const EditUser: React.FC = () => {
         fullWidth
         margin="normal"
         value={user.name}
-        // onChange={(e) => handleChange("fullName", e.target.value)}
+        onChange={(e) => handleChange("name", e.target.value)}
       />
 
       <TextField
@@ -81,7 +119,7 @@ const EditUser: React.FC = () => {
         fullWidth
         margin="normal"
         value={user.email}
-        // onChange={(e) => handleChange("email", e.target.value)}
+        onChange={(e) => handleChange("email", e.target.value)}
       />
 
       <TextField
@@ -90,7 +128,7 @@ const EditUser: React.FC = () => {
         fullWidth
         margin="normal"
         value={user.isActive}
-        // onChange={(e) => handleChange("status", e.target.value)}
+        onChange={(e) => handleChange("isActive", e.target.value)}
       >
         <MenuItem value="true">Active</MenuItem>
         <MenuItem value="false">Inactive</MenuItem>
@@ -101,7 +139,7 @@ const EditUser: React.FC = () => {
         fullWidth
         margin="normal"
         value={user.role}
-        // onChange={(e) => handleChange("email", e.target.value)}
+        onChange={(e) => handleChange("role", e.target.value)}
       />
 
       <TextField
@@ -110,7 +148,6 @@ const EditUser: React.FC = () => {
         margin="normal"
         value={user.createdAt}
         disabled
-        // onChange={(e) => handleChange("email", e.target.value)}
       />
 
       <Box sx={{ mt: 3, display: "flex", justifyContent: "space-between" }}>
@@ -121,7 +158,12 @@ const EditUser: React.FC = () => {
         >
           Cancel
         </Button>
-        <Button variant="contained" color="primary" disabled={saving}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={saving}
+          onClick={handleSave}
+        >
           {saving ? "Saving..." : "Save Changes"}
         </Button>
       </Box>
