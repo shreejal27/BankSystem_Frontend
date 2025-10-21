@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { GetAllUserQueryKey } from "./UserQueryKey";
+import { GetAllUserQueryKey, ToggleUserStatus } from "./UserQueryKey";
 import { apiClientBe } from "../../api/Client/apiClientBe";
 import type { IGetAllUserResponse, IGetUserProfileAdminResponse } from "../../types/UserDto";
 import { GetUserQueryKey, UpdateUserKey } from "../User/UserQueryKey";
@@ -47,4 +47,21 @@ export const useUpdateUser = (id: string) => {
 async function updateUser(id: string, payload: { name: string; email: string; role: number }): Promise<IGetUserProfileAdminResponse> {
   const response = await apiClientBe.put<IGetUserProfileAdminResponse>(`api/User/${id}`,payload);
   return response.data;
+}
+
+export const useToggleUserStatus = (id: string) => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: () => toggleUserStatus(id),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: [ToggleUserStatus] });
+        },
+        onError(error) {
+           return error;
+    }
+});
+};
+
+async function toggleUserStatus(id: string): Promise<void> {
+    await apiClientBe.post(`api/User/toggle-status/${id}`);
 }

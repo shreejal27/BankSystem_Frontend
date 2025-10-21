@@ -9,7 +9,8 @@ import {
 } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
-import BlockIcon from "@mui/icons-material/Block";
+import ActiveUserIcon from "@mui/icons-material/Person";
+import InactiveUserIcon from "@mui/icons-material/PersonOff";
 import { useGetAllUsers } from "../../queries/Admin/UserCommand";
 import { useNavigate } from "react-router-dom";
 
@@ -53,9 +54,11 @@ const Users: React.FC = () => {
     navigate(`edit/${id}`);
   };
 
-  const handleDeactivate = (id: string) => {
+  const handleToggleStatus = (id: string) => {
     setUsers((prev) =>
-      prev.map((u) => (u.id === id ? { ...u, status: "Inactive" } : u))
+      prev.map((u) =>
+        u.id === id ? { ...u, status: "Inactive" } : { ...u, status: "Active" }
+      )
     );
   };
 
@@ -78,15 +81,26 @@ const Users: React.FC = () => {
               <EditIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Deactivate">
-            <IconButton
-              color="error"
-              onClick={() => handleDeactivate(params.row.id)}
-              disabled={params.row.status === "Inactive"}
-            >
-              <BlockIcon />
-            </IconButton>
-          </Tooltip>
+
+          {params.row.status === "Active" ? (
+            <Tooltip title="Deactivate">
+              <IconButton
+                color="error"
+                onClick={() => handleToggleStatus(params.row.id)}
+              >
+                <ActiveUserIcon />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Activate">
+              <IconButton
+                color="success"
+                onClick={() => handleToggleStatus(params.row.id)}
+              >
+                <InactiveUserIcon />
+              </IconButton>
+            </Tooltip>
+          )}
         </>
       ),
     },
