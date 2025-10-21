@@ -19,6 +19,7 @@ import axios from "axios";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
+import { jwtDecode } from "jwt-decode";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -34,6 +35,11 @@ const LoginPage = () => {
     data: loginData,
   } = useLogin();
 
+  interface DecodedToken {
+    sub: string;
+    role: "User" | "Admin";
+  }
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const payload: TLoginSchema = {
@@ -45,8 +51,12 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (loginSuccess && loginData.statusCode === 200) {
-      setToken(loginData.data.token);
-      navigate("/dashboard");
+      const token = loginData.data.token;
+      setToken(token);
+
+      const decoded = jwtDecode<DecodedToken>(token);
+      const role = decoded.role;
+      role === "Admin" ? navigate("/adminDashboard") : navigate("/dashboard");
     }
     if (loginError) {
       if (axios.isAxiosError(loginError)) {
@@ -56,7 +66,7 @@ const LoginPage = () => {
         setError("Unexpected error");
       }
     }
-  }, [loginSuccess, loginError, loginData, navigate]);
+  }, [loginSuccess, loginError, loginData, navigate, setToken]);
 
   const [showPassword, setShowPassword] = useState(false);
 
