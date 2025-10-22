@@ -30,7 +30,7 @@ const Users: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  const { data: allUserData, isLoading } = useGetAllUsers();
+  const { data: allUserData, isLoading, refetch } = useGetAllUsers();
   const toggleUserStatusMutation = useToggleUserStatus();
 
   useEffect(() => {
@@ -59,7 +59,11 @@ const Users: React.FC = () => {
   };
 
   const handleToggleStatus = (id: string) => {
-    toggleUserStatusMutation.mutate(id);
+    toggleUserStatusMutation.mutate(id, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
   };
 
   const columns: GridColDef[] = [
