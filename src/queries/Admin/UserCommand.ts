@@ -49,10 +49,10 @@ async function updateUser(id: string, payload: { name: string; email: string; ro
   return response.data;
 }
 
-export const useToggleUserStatus = (id: string) => {
+export const useToggleUserStatus = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: () => toggleUserStatus(id),
+        mutationFn: (id:string) => toggleUserStatus(id),
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: [ToggleUserStatus] });
         },

@@ -11,7 +11,10 @@ import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import ActiveUserIcon from "@mui/icons-material/Person";
 import InactiveUserIcon from "@mui/icons-material/PersonOff";
-import { useGetAllUsers } from "../../queries/Admin/UserCommand";
+import {
+  useGetAllUsers,
+  useToggleUserStatus,
+} from "../../queries/Admin/UserCommand";
 import { useNavigate } from "react-router-dom";
 
 interface IUser {
@@ -28,6 +31,7 @@ const Users: React.FC = () => {
   const navigate = useNavigate();
 
   const { data: allUserData, isLoading } = useGetAllUsers();
+  const toggleUserStatusMutation = useToggleUserStatus();
 
   useEffect(() => {
     if (allUserData && Array.isArray(allUserData)) {
@@ -55,11 +59,7 @@ const Users: React.FC = () => {
   };
 
   const handleToggleStatus = (id: string) => {
-    setUsers((prev) =>
-      prev.map((u) =>
-        u.id === id ? { ...u, status: "Inactive" } : { ...u, status: "Active" }
-      )
-    );
+    toggleUserStatusMutation.mutate(id);
   };
 
   const columns: GridColDef[] = [
@@ -87,6 +87,7 @@ const Users: React.FC = () => {
               <IconButton
                 color="error"
                 onClick={() => handleToggleStatus(params.row.id)}
+                disabled={toggleUserStatusMutation.isPending}
               >
                 <ActiveUserIcon />
               </IconButton>
@@ -96,6 +97,7 @@ const Users: React.FC = () => {
               <IconButton
                 color="success"
                 onClick={() => handleToggleStatus(params.row.id)}
+                disabled={toggleUserStatusMutation.isPending}
               >
                 <InactiveUserIcon />
               </IconButton>
