@@ -10,3 +10,10 @@ export interface IDashboardResponse {
   totalBalance: number;
   recentTransactions: TransactionDto[];
 }
+
+export interface IAdminDashboardResponse{
+  users: number;
+  accounts: number;
+  transactedAmount: number;
+  transactionsCount: number;
+} 

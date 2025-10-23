@@ -10,30 +10,29 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Avatar,
   Box,
 } from "@mui/material";
 
-//import { useAdminDashboardData } from "../queries/Dashboard/AdminDashboardCommand";
+import { useAdminDashboardData } from "../../queries/Admin/DashboardCommand";
 
 const AdminDashboard = () => {
-  //const { isLoading, isError, data: adminData } = useAdminDashboardData();
+  const { isLoading, isError, data: adminData } = useAdminDashboardData();
 
-  //   if (isLoading) {
-  //     return (
-  //       <Container sx={{ mt: 5, textAlign: "center" }}>
-  //         <CircularProgress />
-  //       </Container>
-  //     );
-  //   }
+  if (isLoading) {
+    return (
+      <Container sx={{ mt: 5, textAlign: "center" }}>
+        <CircularProgress />
+      </Container>
+    );
+  }
 
-  //   if (isError || !adminData) {
-  //     return (
-  //       <Container sx={{ mt: 5, textAlign: "center" }}>
-  //         <Typography color="error">Failed to load admin dashboard</Typography>
-  //       </Container>
-  //     );
-  //   }
+  if (isError || !adminData) {
+    return (
+      <Container sx={{ mt: 5, textAlign: "center" }}>
+        <Typography color="error">Failed to load admin dashboard</Typography>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="lg" sx={{ mt: 5 }}>
@@ -48,10 +47,9 @@ const AdminDashboard = () => {
         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <Card sx={{ backgroundColor: "#e3f2fd" }}>
             <CardContent>
-              <Typography variant="h6">Total Users</Typography>
+              <Typography variant="h6">Users</Typography>
               <Typography variant="h4" color="primary">
-                {/* {adminData.totalUsers} */}
-                500
+                {adminData?.users}
               </Typography>
             </CardContent>
           </Card>
@@ -60,10 +58,9 @@ const AdminDashboard = () => {
         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <Card sx={{ backgroundColor: "#e8f5e9" }}>
             <CardContent>
-              <Typography variant="h6">Total Accounts</Typography>
+              <Typography variant="h6"> Accounts</Typography>
               <Typography variant="h4" color="success.main">
-                {/* {adminData.totalAccounts} */}
-                200
+                {adminData.accounts}
               </Typography>
             </CardContent>
           </Card>
@@ -72,10 +69,9 @@ const AdminDashboard = () => {
         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <Card sx={{ backgroundColor: "#fff3e0" }}>
             <CardContent>
-              <Typography variant="h6">Total Balance</Typography>
+              <Typography variant="h6">Transacted Amount</Typography>
               <Typography variant="h4" color="warning.main">
-                {/* Rs {adminData.totalBalance.toFixed(2)} */}
-                Rs. 10000.00
+                Rs {adminData.transactedAmount}
               </Typography>
             </CardContent>
           </Card>
@@ -84,17 +80,15 @@ const AdminDashboard = () => {
         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <Card sx={{ backgroundColor: "#ffebee" }}>
             <CardContent>
-              <Typography variant="h6">Total Transactions</Typography>
+              <Typography variant="h6">Transactions Count</Typography>
               <Typography variant="h4" color="error.main">
-                {/* {adminData.totalTransactions} */}
-                1500
+                {adminData.transactionsCount}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
 
-    
       <Box sx={{ mt: 4 }}>
         <Card>
           <CardContent>
