@@ -11,6 +11,6 @@ export const useGetUserAccountNumber = (id:string ) => {
 };
 
 async function getUserAccountNumber(id: string): Promise<IGetUserAccountNumber> { 
-    const response = await apiClientBe.get<IGetUserAccountNumber>("api/Accounts/getAccountNumberById"+ id);
+    const response = await apiClientBe.get<IGetUserAccountNumber>("api/Accounts/getAccountNumberById?id="+ id);
     return response.data;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -9,6 +9,8 @@ import {
   Paper,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useGetUserAccountNumber } from "../queries/Transactions/TransactionsCommand";
+import { useAuth } from "../context/AuthContext";
 //import apiClient from "../api/Client/apiClientBe";
 
 const DepositPage: React.FC = () => {
@@ -19,6 +21,17 @@ const DepositPage: React.FC = () => {
   const [success, setSuccess] = useState("");
 
   const navigate = useNavigate();
+
+  const { getUserId } = useAuth();
+  const userId = getUserId() || "";
+
+  const { data: userAccountNumber } = useGetUserAccountNumber(userId);
+
+  useEffect(() => {
+    if (userAccountNumber) {
+      setAccountNumber(userAccountNumber.accountNumber);
+    }
+  }, [userAccountNumber]);
 
   const handleDeposit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +83,7 @@ const DepositPage: React.FC = () => {
                 label="Account Number"
                 fullWidth
                 value={accountNumber}
+                disabled
                 onChange={(e) => setAccountNumber(e.target.value)}
                 required
               />
