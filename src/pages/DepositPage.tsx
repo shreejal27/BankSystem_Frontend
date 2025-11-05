@@ -8,10 +8,8 @@ import {
   Box,
   Paper,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { useGetUserAccountNumber } from "../queries/Transactions/TransactionsCommand";
 import { useAuth } from "../context/AuthContext";
-//import apiClient from "../api/Client/apiClientBe";
 
 const DepositPage: React.FC = () => {
   const [amount, setAmount] = useState<number | "">("");
@@ -19,8 +17,6 @@ const DepositPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
-  const navigate = useNavigate();
 
   const { getUserId } = useAuth();
   const userId = getUserId() || "";
@@ -43,23 +39,12 @@ const DepositPage: React.FC = () => {
       return;
     }
     if (!accountNumber.trim()) {
-      setError("Please enter account number.");
+      setError("Please enter valid account number.");
       return;
     }
-
+    //for deposit logic, to be implemented
     try {
       setLoading(true);
-      // const response = await apiClient.post("/transactions/deposit", {
-      //   accountNumber,
-      //   amount,
-      // });
-
-      // if (response.data) {
-      //   setSuccess("Deposit successful!");
-      //   setAmount("");
-      //   setAccountNumber("");
-      //   setTimeout(() => navigate("/dashboard"), 1500); // redirect after success
-      // }
     } catch (err: any) {
       setError(
         err.response?.data?.message || "Something went wrong. Please try again."
