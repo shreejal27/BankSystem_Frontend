@@ -8,8 +8,12 @@ import {
   Box,
   Paper,
 } from "@mui/material";
-import { useGetUserAccountNumber } from "../queries/Transactions/TransactionsCommand";
+import {
+  useDeposit,
+  useGetUserAccountNumber,
+} from "../queries/Transactions/TransactionsCommand";
 import { useAuth } from "../context/AuthContext";
+import type { IDeposit } from "../types/TransactionsDto";
 
 const DepositPage: React.FC = () => {
   const [amount, setAmount] = useState<number | "">("");
@@ -17,6 +21,13 @@ const DepositPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const {
+    mutate: depositMutation,
+    isSuccess: depositSuccess,
+    error: depositError,
+    data: depositData,
+  } = useDeposit();
 
   const { getUserId } = useAuth();
   const userId = getUserId() || "";
@@ -42,9 +53,13 @@ const DepositPage: React.FC = () => {
       setError("Please enter valid account number.");
       return;
     }
-    //for deposit logic, to be implemented
+    const payload: IDeposit = {
+      accountNumber: accountNumber,
+      amount: amount,
+    };
     try {
       setLoading(true);
+      depositMutation(payload);
     } catch (err: any) {
       setError(
         err.response?.data?.message || "Something went wrong. Please try again."
