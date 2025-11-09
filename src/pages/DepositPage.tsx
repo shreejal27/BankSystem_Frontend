@@ -84,7 +84,6 @@ const DepositPage: React.FC = () => {
                 fullWidth
                 value={accountNumber}
                 disabled
-                onChange={(e) => setAccountNumber(e.target.value)}
                 required
               />
             </Grid>
