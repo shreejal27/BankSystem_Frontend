@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClientBe } from "../../api/Client/apiClientBe";
-import type { IDeposit, IDepositResponse, IGetUserAccountNumber } from "../../types/TransactionsDto";
-import { DepositQueryKey, GetUserAccountNumberQueryKey } from "./TransactionsQueryKey";
+import type { IDeposit, IDepositResponse, IGetUserAccountNumber, IWithdraw, IWithdrawResponse } from "../../types/TransactionsDto";
+import { DepositQueryKey, GetUserAccountNumberQueryKey, WithdrawQueryKey } from "./TransactionsQueryKey";
 
 export const useGetUserAccountNumber = (id:string ) => {
     return useQuery({
@@ -31,5 +31,23 @@ export const useDeposit = () => {
 
 async function deposit(data: IDeposit): Promise<IDepositResponse> {
     const response = await apiClientBe.post<IDepositResponse>("api/Transaction/deposit", data);
+    return response.data;
+}
+
+export const useWithdraw = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: IWithdraw) => withdraw(data),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: [WithdrawQueryKey] });
+        },
+        onError(error) {
+           return error;
+    }
+});
+};
+
+async function withdraw(data: IWithdraw): Promise<IWithdrawResponse> {
+    const response = await apiClientBe.post<IWithdrawResponse>("api/Transaction/withdraw", data);
     return response.data;
 }
