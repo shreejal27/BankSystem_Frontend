@@ -72,7 +72,7 @@ const DepositPage: React.FC = () => {
   return (
     <Container maxWidth="sm" sx={{ mt: 5 }}>
       <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
-        <Typography variant="h5" align="center" gutterBottom>
+        <Typography variant="h5" align="center" mb={3} gutterBottom>
           Deposit Money
         </Typography>
 
@@ -111,7 +111,7 @@ const DepositPage: React.FC = () => {
               <Button
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="error"
                 fullWidth
                 disabled={loading}
               >
