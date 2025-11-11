@@ -5,33 +5,34 @@ import {
   Typography,
   Paper,
   Grid,
-  Snackbar,
   Box,
   Container,
 } from "@mui/material";
 
-import { useState } from "react";
-import { useGetUserAccountNumber } from "../queries/Transactions/TransactionsCommand";
+import {
+  useGetUserAccountNumber,
+  useTransfer,
+} from "../queries/Transactions/TransactionsCommand";
 import { useAuth } from "../context/AuthContext";
 
 interface TransferForm {
   fromAccountNumber: string;
   toAccountNumber: string;
   amount: number;
-  handleTransfer: any;
 }
 
 const TransferPage = () => {
-  const { register, handletranfer } = useForm<TransferForm>();
-  const [success, setSuccess] = useState(false);
+  const { register, handleSubmit } = useForm<TransferForm>();
 
   const { getUserId } = useAuth();
   const userId = getUserId() || "";
   const { data: userAccountNumber } = useGetUserAccountNumber(userId);
 
-  const onSubmit = async (data: TransferForm) => {
+  const transferMutation = useTransfer();
+
+  const handleTransfer = async (data: TransferForm) => {
     try {
-      // await axios.post("/transaction/transfer", data);
+      await transferMutation.mutateAsync(data);
     } catch (error) {
       console.error("Transfer failed", error);
     }
@@ -45,7 +46,7 @@ const TransferPage = () => {
         </Typography>
         <Box
           component="form"
-          onSubmit={handletranfer}
+          onSubmit={handleSubmit(handleTransfer)}
           noValidate
           sx={{ mt: 1 }}
         >
@@ -73,7 +74,11 @@ const TransferPage = () => {
                 label="Amount"
                 type="number"
                 fullWidth
-                {...register("amount", { required: true, min: 1 })}
+                required
+                {...register("amount", {
+                  required: "Amount is required",
+                  min: { value: 1, message: "Amount must be at least 1" },
+                })}
               />
             </Grid>
             <Grid size={12}>

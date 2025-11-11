@@ -12,10 +12,20 @@ export interface IWithdraw {
     amount: number;
 }
 
+export interface ITransfer {
+    fromAccountNumber: string;
+    toAccountNumber: string;
+    amount: number;
+}
+
 export interface IDepositResponse {
   message: string;
 }
 
 export interface IWithdrawResponse {
+  message: string;
+}
+
+export interface ITransferResponse {
   message: string;
 }
