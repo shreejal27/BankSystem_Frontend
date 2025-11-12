@@ -1,7 +1,7 @@
 export interface TransactionDto {
   amount: number;
-  type: string;
-  timestamp: string;
+  type: number;
+  createdAt: string;
 }
 
 export interface IDashboardResponse {

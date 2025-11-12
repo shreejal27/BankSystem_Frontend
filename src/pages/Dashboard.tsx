@@ -11,12 +11,15 @@ import {
   TableBody,
   Avatar,
   Grid,
+  Box,
 } from "@mui/material";
 
 import { useDashboardData } from "../queries/Dashboard/DashboardCommand";
 
 const Dashboard = () => {
   const { isLoading, isError, data: dashboardData } = useDashboardData();
+
+  console.log("Dashboard Data:", dashboardData);
 
   if (isLoading) {
     return (
@@ -33,6 +36,19 @@ const Dashboard = () => {
       </Container>
     );
   }
+
+  const getTransactionType = (type: number) => {
+    switch (type) {
+      case 0:
+        return { label: "Deposit", color: "#66bb6a" };
+      case 1:
+        return { label: "Withdraw", color: "#ef5350" };
+      case 2:
+        return { label: "Transfer", color: "#42a5f5" };
+      default:
+        return { label: "Unknown", color: "#bdbdbd" };
+    }
+  };
 
   return (
     <Container maxWidth="md" sx={{ mt: 5 }}>
@@ -72,40 +88,41 @@ const Dashboard = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {dashboardData.recentTransactions.map((t, index) => (
-                    <TableRow key={index}>
-                      <TableCell>
-                        {t?.type ? (
-                          <>
+                  {dashboardData.recentTransactions.map((t, index) => {
+                    const { label, color } = getTransactionType(t.type);
+
+                    return (
+                      <TableRow key={index}>
+                        <TableCell>
+                          <Box display="flex" alignItems="center" gap={1}>
                             <Avatar
                               sx={{
-                                bgcolor:
-                                  t.type === "Withdraw" ? "#ef5350" : "#66bb6a",
+                                bgcolor: color,
                                 width: 30,
                                 height: 30,
                                 fontSize: 14,
                               }}
                             >
-                              {t.type[0]}
-                            </Avatar>{" "}
-                            {t.type}
-                          </>
-                        ) : (
-                          "N/A"
-                        )}
-                      </TableCell>
+                              {label[0]}
+                            </Avatar>
+                            {label}
+                          </Box>
+                        </TableCell>
 
-                      <TableCell>
-                        {t?.amount != null ? `$${t.amount.toFixed(2)}` : "N/A"}
-                      </TableCell>
+                        <TableCell>
+                          {t?.amount != null
+                            ? `$${t.amount.toFixed(2)}`
+                            : "N/A"}
+                        </TableCell>
 
-                      <TableCell>
-                        {t?.timestamp
-                          ? new Date(t.timestamp).toLocaleString()
-                          : "N/A"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                        <TableCell>
+                          {t?.createdAt
+                            ? new Date(t.createdAt).toLocaleString()
+                            : "N/A"}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </CardContent>
