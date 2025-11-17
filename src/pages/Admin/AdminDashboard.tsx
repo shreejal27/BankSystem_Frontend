@@ -100,19 +100,22 @@ const AdminDashboard = () => {
                 <TableRow>
                   <TableCell>Name</TableCell>
                   <TableCell>Email</TableCell>
-                  <TableCell>Role</TableCell>
-                  <TableCell>Accounts</TableCell>
+                  {/* <TableCell>Role</TableCell> */}
+                  <TableCell>Created At</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* {adminData.users.map((u, index: number) => (
+                {adminData.latestUsers.map((u, index: number) => (
                   <TableRow key={index}>
-                    <TableCell>{u.fullName}</TableCell>
+                    <TableCell>{u.name}</TableCell>
                     <TableCell>{u.email}</TableCell>
-                    <TableCell>{u.role}</TableCell>
-                    <TableCell>{u.accountCount}</TableCell>
+                    {/* <TableCell>{u.role}</TableCell> */}
+                    <TableCell>
+                      {" "}
+                      {new Date(u.createdAt).toLocaleString()}
+                    </TableCell>
                   </TableRow>
-                ))} */}
+                ))}
               </TableBody>
             </Table>
           </CardContent>
@@ -128,36 +131,25 @@ const AdminDashboard = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>User</TableCell>
-                  <TableCell>Type</TableCell>
+                  <TableCell>AccountNumber</TableCell>
                   <TableCell>Amount</TableCell>
-                  <TableCell>Date</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Created At</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* {adminData.recentTransactions.map((t, index) => (
+                {adminData.latestTransactions.map((t, index) => (
                   <TableRow key={index}>
-                    <TableCell>{t.userName}</TableCell>
-                    <TableCell>
-                      <Avatar
-                        sx={{
-                          bgcolor:
-                            t.type === "Withdraw" ? "#ef5350" : "#66bb6a",
-                          width: 30,
-                          height: 30,
-                          fontSize: 14,
-                        }}
-                      >
-                        {t.type[0]}
-                      </Avatar>{" "}
-                      {t.type}
-                    </TableCell>
+                    <TableCell>{t.accountNumber}</TableCell>
                     <TableCell>Rs {t.amount.toFixed(2)}</TableCell>
+                    <TableCell>{t.type}</TableCell>
+                    <TableCell>For Description</TableCell>
                     <TableCell>
                       {new Date(t.timestamp).toLocaleString()}
                     </TableCell>
                   </TableRow>
-                ))} */}
+                ))}
               </TableBody>
             </Table>
           </CardContent>

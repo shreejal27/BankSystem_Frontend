@@ -1,7 +1,8 @@
 export interface TransactionDto {
   amount: number;
   type: number;
-  createdAt: string;
+  accountNumber: string;
+  timestamp: string;
 }
 
 export interface IDashboardResponse {
@@ -11,9 +12,18 @@ export interface IDashboardResponse {
   recentTransactions: TransactionDto[];
 }
 
+export interface UserDto {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+}
+
 export interface IAdminDashboardResponse{
   users: number;
   accounts: number;
   transactedAmount: number;
   transactionsCount: number;
+  latestUsers: UserDto[];
+  latestTransactions: TransactionDto[];
 } 
