@@ -100,7 +100,6 @@ const AdminDashboard = () => {
                 <TableRow>
                   <TableCell>Name</TableCell>
                   <TableCell>Email</TableCell>
-                  {/* <TableCell>Role</TableCell> */}
                   <TableCell>Created At</TableCell>
                 </TableRow>
               </TableHead>
@@ -109,9 +108,7 @@ const AdminDashboard = () => {
                   <TableRow key={index}>
                     <TableCell>{u.name}</TableCell>
                     <TableCell>{u.email}</TableCell>
-                    {/* <TableCell>{u.role}</TableCell> */}
                     <TableCell>
-                      {" "}
                       {new Date(u.createdAt).toLocaleString()}
                     </TableCell>
                   </TableRow>
