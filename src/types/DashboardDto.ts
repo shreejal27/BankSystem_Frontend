@@ -1,7 +1,8 @@
 export interface TransactionDto {
   amount: number;
-  type: number;
-  accountNumber: string;
+  type: string;
+  name: string;
+  email: string;
   timestamp: string;
 }
 

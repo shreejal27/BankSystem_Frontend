@@ -128,7 +128,8 @@ const AdminDashboard = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>AccountNumber</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Email</TableCell>
                   <TableCell>Amount</TableCell>
                   <TableCell>Type</TableCell>
                   <TableCell>Description</TableCell>
@@ -138,7 +139,8 @@ const AdminDashboard = () => {
               <TableBody>
                 {adminData.latestTransactions.map((t, index) => (
                   <TableRow key={index}>
-                    <TableCell>{t.accountNumber}</TableCell>
+                    <TableCell>{t.name}</TableCell>
+                    <TableCell>{t.email}</TableCell>
                     <TableCell>Rs {t.amount.toFixed(2)}</TableCell>
                     <TableCell>{t.type}</TableCell>
                     <TableCell>For Description</TableCell>
