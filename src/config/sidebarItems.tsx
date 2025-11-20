@@ -12,7 +12,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 export const sidebarItemsUser = [
   { name: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
-  { name: "Accounts", path: "/accounts", icon: <AccountBalanceIcon /> },
+  {
+    name: "Accounts",
+    path: "/accounts",
+    icon: <AccountBalanceIcon />,
+    children: [
+      { name: "Create Account", path: "/users/accounts" },
+      { name: "Edit Account", path: "/accounts" },
+    ],
+  },
   { name: "Deposit", path: "/deposit", icon: <Saving /> },
   { name: "Withdraw", path: "/withdraw", icon: <Payment /> },
   { name: "Transfer", path: "/transfer", icon: <SwapHorizIcon /> },
@@ -23,7 +31,15 @@ export const sidebarItemsUser = [
 
 export const sidebarItemsAdmin = [
   { name: "Dashboard", path: "/adminDashboard", icon: <DashboardIcon /> },
-  { name: "Manage Users", path: "/users", icon: <PeopleIcon /> },
+  {
+    name: "Manage Users",
+    path: "/users",
+    icon: <PeopleIcon />,
+    children: [
+      { name: "All Users", path: "/users" },
+      { name: "Pending Users", path: "/pending-users" },
+    ],
+  },
   { name: "Manage Accounts", path: "/accounts", icon: <AccountBalanceIcon /> },
   { name: "Transactions", path: "/transactions", icon: <HistoryIcon /> },
   { name: "Reports", path: "/reports", icon: <BarChartIcon /> },
