@@ -136,6 +136,7 @@ const Users: React.FC = () => {
           rows={filteredUsers}
           columns={columns}
           getRowId={(row) => row.id}
+          pageSizeOptions={[5, 10, 25, 50]}
           disableRowSelectionOnClick
           sx={{
             "& .MuiDataGrid-columnHeaders": {
