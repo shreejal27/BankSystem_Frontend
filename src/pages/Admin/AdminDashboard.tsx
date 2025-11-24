@@ -44,7 +44,7 @@ const AdminDashboard = () => {
       </Typography>
 
       <Grid container columns={12} spacing={2} sx={{ width: "100%" }}>
-        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card sx={{ backgroundColor: "#e3f2fd" }}>
             <CardContent>
               <Typography variant="h6">Users</Typography>
@@ -55,7 +55,7 @@ const AdminDashboard = () => {
           </Card>
         </Grid>
 
-        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card sx={{ backgroundColor: "#e8f5e9" }}>
             <CardContent>
               <Typography variant="h6"> Accounts</Typography>
@@ -66,18 +66,18 @@ const AdminDashboard = () => {
           </Card>
         </Grid>
 
-        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card sx={{ backgroundColor: "#fff3e0" }}>
             <CardContent>
               <Typography variant="h6">Transacted Amount</Typography>
               <Typography variant="h4" color="warning.main">
-                Rs {adminData.transactedAmount}
+                {adminData.transactedAmount}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card sx={{ backgroundColor: "#ffebee" }}>
             <CardContent>
               <Typography variant="h6">Transactions Count</Typography>
