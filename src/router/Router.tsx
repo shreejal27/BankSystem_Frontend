@@ -11,6 +11,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import RegisterPage from "../pages/RegisterPage";
 import AppLayout from "../components/AppLayout";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
+import PendingUsers from "../pages/Admin/PendingUsers";
 
 const AdminDashboard = lazy(() => import("../pages/Admin/AdminDashboard"));
 const Users = lazy(() => import("../pages/Admin/Users"));
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
             <Route path="adminDashboard" element={<AdminDashboard />} />
             <Route path="users" element={<Users />} />
             <Route path="users/edit/:id" element={<EditUser />} />
+            <Route path="pending-users" element={<PendingUsers />} />
 
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="deposit" element={<DepositPage />} />
