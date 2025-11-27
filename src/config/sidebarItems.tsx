@@ -16,15 +16,23 @@ export const sidebarItemsUser = [
     name: "Accounts",
     path: "/accounts",
     icon: <AccountBalanceIcon />,
+  },
+  {
+    name: "Transactions",
+    path: "/",
+    icon: <Payment />,
     children: [
-      { name: "Create Account", path: "/users/accounts" },
-      { name: "Edit Account", path: "/accounts" },
+      { name: "Deposit", path: "/deposit", icon: <Saving /> },
+      { name: "Withdraw", path: "/withdraw", icon: <Payment /> },
+      { name: "Transfer", path: "/transfer", icon: <SwapHorizIcon /> },
     ],
   },
-  { name: "Deposit", path: "/deposit", icon: <Saving /> },
-  { name: "Withdraw", path: "/withdraw", icon: <Payment /> },
-  { name: "Transfer", path: "/transfer", icon: <SwapHorizIcon /> },
-  { name: "Transactions", path: "/transactions", icon: <HistoryIcon /> },
+
+  {
+    name: "Transactions History",
+    path: "/transactions",
+    icon: <HistoryIcon />,
+  },
   { name: "Profile", path: "/profile", icon: <AccountCircleIcon /> },
   { name: "Logout", path: "/login", icon: <LogoutIcon /> },
 ];
