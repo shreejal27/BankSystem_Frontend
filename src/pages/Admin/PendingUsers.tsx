@@ -30,7 +30,7 @@ const PendingUsers: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  const { data: allUserData, isLoading, refetch } = useGetAllUsers();
+  const { data: allUserData, isLoading, refetch } = useGetAllUsers("pending");
   const toggleUserStatusMutation = useToggleUserStatus();
 
   useEffect(() => {

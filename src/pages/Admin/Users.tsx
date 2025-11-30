@@ -30,7 +30,7 @@ const Users: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  const { data: allUserData, isLoading, refetch } = useGetAllUsers();
+  const { data: allUserData, isLoading, refetch } = useGetAllUsers("all");
   const toggleUserStatusMutation = useToggleUserStatus();
 
   useEffect(() => {
