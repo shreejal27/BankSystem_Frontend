@@ -8,27 +8,28 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-import EditIcon from "@mui/icons-material/Edit";
-import ActiveUserIcon from "@mui/icons-material/Person";
-import InactiveUserIcon from "@mui/icons-material/PersonOff";
+// import EditIcon from "@mui/icons-material/Edit";
+// import ActiveUserIcon from "@mui/icons-material/Person";
+// import InactiveUserIcon from "@mui/icons-material/PersonOff";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import {
   useGetAllUsers,
   useToggleUserStatus,
 } from "../../queries/Admin/UserCommand";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 interface IUser {
   id: string;
   fullName: string;
   email: string;
-  status: "Active" | "Inactive";
+  status: "Active" | "Inactive" | "Pending";
 }
 
 const PendingUsers: React.FC = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { data: allUserData, isLoading, refetch } = useGetAllUsers("pending");
   const toggleUserStatusMutation = useToggleUserStatus();
@@ -39,7 +40,12 @@ const PendingUsers: React.FC = () => {
         id: u.id,
         fullName: u.name,
         email: u.email,
-        status: u.isActive ? "Active" : "Inactive",
+        status:
+          u.isActive == null
+            ? "Pending"
+            : u.isActive == true
+            ? "Active"
+            : "Inactive",
       }));
       setUsers(formatted);
       setFilteredUsers(formatted);
@@ -54,9 +60,9 @@ const PendingUsers: React.FC = () => {
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
 
-  const handleEdit = (id: string) => {
-    navigate(`edit/${id}`);
-  };
+  // const handleEdit = (id: string) => {
+  //   navigate(`edit/${id}`);
+  // };
 
   const handleToggleStatus = (id: string) => {
     toggleUserStatusMutation.mutate(id, {
@@ -77,16 +83,16 @@ const PendingUsers: React.FC = () => {
       sortable: false,
       renderCell: (params) => (
         <>
-          <Tooltip title="Edit">
+          {/* <Tooltip title="Edit">
             <IconButton
               color="primary"
               onClick={() => handleEdit(params.row.id)}
             >
               <EditIcon />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
 
-          {params.row.status === "Active" ? (
+          {/* {params.row.status === "Active" ? (
             <Tooltip title="Deactivate">
               <IconButton
                 color="error"
@@ -96,17 +102,17 @@ const PendingUsers: React.FC = () => {
                 <ActiveUserIcon />
               </IconButton>
             </Tooltip>
-          ) : (
-            <Tooltip title="Activate">
-              <IconButton
-                color="success"
-                onClick={() => handleToggleStatus(params.row.id)}
-                disabled={toggleUserStatusMutation.isPending}
-              >
-                <InactiveUserIcon />
-              </IconButton>
-            </Tooltip>
-          )}
+          ) : ( */}
+          <Tooltip title="Activate">
+            <IconButton
+              color="success"
+              onClick={() => handleToggleStatus(params.row.id)}
+              disabled={toggleUserStatusMutation.isPending}
+            >
+              <PersonAddAltIcon />
+            </IconButton>
+          </Tooltip>
+          {/* )} */}
         </>
       ),
     },
