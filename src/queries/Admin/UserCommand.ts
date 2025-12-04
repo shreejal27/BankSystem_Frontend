@@ -65,3 +65,23 @@ export const useToggleUserStatus = () => {
 async function toggleUserStatus(id: string): Promise<void> {
     await apiClientBe.post(`api/User/toggle-status/${id}`);
 }
+
+
+export const useActivateUser = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => activateUser(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["ActivateUser"] });
+    },
+    onError: (error: any) => {
+      console.error("Error toggling user status:", error);
+    },
+  });
+};
+
+
+async function activateUser(id: string): Promise<void> {
+    await apiClientBe.post(`api/user/activate/${id}`);
+}
