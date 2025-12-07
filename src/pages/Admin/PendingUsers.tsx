@@ -13,8 +13,8 @@ import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 // import InactiveUserIcon from "@mui/icons-material/PersonOff";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import {
+  useActivateUser,
   useGetAllUsers,
-  useToggleUserStatus,
 } from "../../queries/Admin/UserCommand";
 // import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,7 @@ const PendingUsers: React.FC = () => {
   // const navigate = useNavigate();
 
   const { data: allUserData, isLoading, refetch } = useGetAllUsers("pending");
-  const toggleUserStatusMutation = useToggleUserStatus();
+  const activateUser = useActivateUser();
 
   useEffect(() => {
     if (allUserData && Array.isArray(allUserData)) {
@@ -60,12 +60,8 @@ const PendingUsers: React.FC = () => {
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
 
-  // const handleEdit = (id: string) => {
-  //   navigate(`edit/${id}`);
-  // };
-
-  const handleToggleStatus = (id: string) => {
-    toggleUserStatusMutation.mutate(id, {
+  const handleActivateUser = (id: string) => {
+    activateUser.mutate(id, {
       onSuccess: () => {
         refetch();
       },
@@ -83,31 +79,11 @@ const PendingUsers: React.FC = () => {
       sortable: false,
       renderCell: (params) => (
         <>
-          {/* <Tooltip title="Edit">
-            <IconButton
-              color="primary"
-              onClick={() => handleEdit(params.row.id)}
-            >
-              <EditIcon />
-            </IconButton>
-          </Tooltip> */}
-
-          {/* {params.row.status === "Active" ? (
-            <Tooltip title="Deactivate">
-              <IconButton
-                color="error"
-                onClick={() => handleToggleStatus(params.row.id)}
-                disabled={toggleUserStatusMutation.isPending}
-              >
-                <ActiveUserIcon />
-              </IconButton>
-            </Tooltip>
-          ) : ( */}
           <Tooltip title="Activate">
             <IconButton
               color="success"
-              onClick={() => handleToggleStatus(params.row.id)}
-              disabled={toggleUserStatusMutation.isPending}
+              onClick={() => handleActivateUser(params.row.id)}
+              disabled={activateUser.isPending}
             >
               <PersonAddAltIcon />
             </IconButton>

@@ -83,5 +83,5 @@ export const useActivateUser = () => {
 
 
 async function activateUser(id: string): Promise<void> {
-    await apiClientBe.post(`api/user/activate/${id}`);
+    await apiClientBe.post(`/user/activate/${id}`);
 }
