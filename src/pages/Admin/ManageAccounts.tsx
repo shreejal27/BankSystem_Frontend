@@ -39,32 +39,32 @@ const ManageAccounts = () => {
   const queryClient = useQueryClient();
 
   // Fetch all accounts
-  const { data: accounts, isLoading } = useQuery({
-    queryKey: ["all-accounts"],
-    queryFn: async () => {
-      const res = await axios.get("http://localhost:5131/api/Account?flag=all");
-      return res.data;
-    },
-  });
+  // const { data: accounts, isLoading } = useQuery({
+  //   queryKey: ["all-accounts"],
+  //   queryFn: async () => {
+  //     const res = await axios.get("http://localhost:5131/api/Account?flag=all");
+  //     return res.data;
+  //   },
+  // });
 
   // Update account mutation
-  const updateMutation = useMutation({
-    mutationFn: async (updated: IAccountResponse) =>
-      axios.put(`http://localhost:5131/api/Account/${updated.id}`, updated),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["all-accounts"]);
-      setOpenEdit(false);
-    },
-  });
+  // const updateMutation = useMutation({
+  //   mutationFn: async (updated: IAccountResponse) =>
+  //     axios.put(`http://localhost:5131/api/Account/${updated.id}`, updated),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(["all-accounts"]);
+  //     setOpenEdit(false);
+  //   },
+  // });
 
   // Delete account
-  const deleteMutation = useMutation({
-    mutationFn: async (id: string) =>
-      axios.delete(`http://localhost:5131/api/Account/${id}`),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["all-accounts"]);
-    },
-  });
+  // const deleteMutation = useMutation({
+  //   mutationFn: async (id: string) =>
+  //     axios.delete(`http://localhost:5131/api/Account/${id}`),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(["all-accounts"]);
+  //   },
+  // });
 
   // Columns
   const columns: GridColDef[] = [
