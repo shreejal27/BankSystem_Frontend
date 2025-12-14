@@ -85,3 +85,23 @@ export const useActivateUser = () => {
 async function activateUser(id: string): Promise<void> {
     await apiClientBe.post(`/user/activate/${id}`);
 }
+
+
+export const useDeactivateUser = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => deactivateUser(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["DeactivateUser"] });
+    },
+    onError: (error: any) => {
+      console.error("Error toggling user status:", error);
+    },
+  });
+};
+
+
+async function deactivateUser(id: string): Promise<void> {
+    await apiClientBe.post(`/user/deactivate/${id}`);
+}

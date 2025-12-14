@@ -12,6 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ActiveUserIcon from "@mui/icons-material/Person";
 import InactiveUserIcon from "@mui/icons-material/PersonOff";
 import {
+  useDeactivateUser,
   useGetAllUsers,
   useToggleUserStatus,
 } from "../../queries/Admin/UserCommand";
@@ -66,6 +67,15 @@ const Users: React.FC = () => {
     });
   };
 
+    const deactivateUser = useDeactivateUser();
+    const handleDeactivateUser = (id: string) => {
+    deactivateUser.mutate(id, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
+  };
+
   const columns: GridColDef[] = [
     { field: "fullName", headerName: "Full Name", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
@@ -90,8 +100,8 @@ const Users: React.FC = () => {
             <Tooltip title="Deactivate">
               <IconButton
                 color="error"
-                onClick={() => handleToggleStatus(params.row.id)}
-                disabled={toggleUserStatusMutation.isPending}
+                onClick={() => handleDeactivateUser(params.row.id)}
+                disabled={deactivateUser.isPending}
               >
                 <ActiveUserIcon />
               </IconButton>
