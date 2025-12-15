@@ -12,9 +12,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import ActiveUserIcon from "@mui/icons-material/Person";
 import InactiveUserIcon from "@mui/icons-material/PersonOff";
 import {
+  useActivateUser,
   useDeactivateUser,
   useGetAllUsers,
-  useToggleUserStatus,
 } from "../../queries/Admin/UserCommand";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,6 @@ const Users: React.FC = () => {
   const navigate = useNavigate();
 
   const { data: allUserData, isLoading, refetch } = useGetAllUsers("all");
-  const toggleUserStatusMutation = useToggleUserStatus();
 
   useEffect(() => {
     if (allUserData && Array.isArray(allUserData)) {
@@ -59,16 +58,17 @@ const Users: React.FC = () => {
     navigate(`edit/${id}`);
   };
 
-  const handleToggleStatus = (id: string) => {
-    toggleUserStatusMutation.mutate(id, {
+  const activateUser = useActivateUser();
+  const handleActivateUser = (id: string) => {
+    activateUser.mutate(id, {
       onSuccess: () => {
         refetch();
       },
     });
   };
 
-    const deactivateUser = useDeactivateUser();
-    const handleDeactivateUser = (id: string) => {
+  const deactivateUser = useDeactivateUser();
+  const handleDeactivateUser = (id: string) => {
     deactivateUser.mutate(id, {
       onSuccess: () => {
         refetch();
@@ -110,8 +110,8 @@ const Users: React.FC = () => {
             <Tooltip title="Activate">
               <IconButton
                 color="success"
-                onClick={() => handleToggleStatus(params.row.id)}
-                disabled={toggleUserStatusMutation.isPending}
+                onClick={() => handleActivateUser(params.row.id)}
+                disabled={activateUser.isPending}
               >
                 <InactiveUserIcon />
               </IconButton>
