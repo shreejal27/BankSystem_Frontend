@@ -17,6 +17,7 @@ import {
   useGetAllUsers,
 } from "../../queries/Admin/UserCommand";
 import { useNavigate } from "react-router-dom";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 interface IUser {
   id: string;
@@ -30,6 +31,21 @@ const Users: React.FC = () => {
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [actionType, setActionType] = useState<
+    "activate" | "deactivate" | null
+  >(null);
+
+  const openConfirmDialog = (
+    userId: string,
+    action: "activate" | "deactivate"
+  ) => {
+    setSelectedUserId(userId);
+    setActionType(action);
+    setConfirmOpen(true);
+  };
 
   const { data: allUserData, isLoading, refetch } = useGetAllUsers("all");
 
@@ -59,21 +75,26 @@ const Users: React.FC = () => {
   };
 
   const activateUser = useActivateUser();
-  const handleActivateUser = (id: string) => {
-    activateUser.mutate(id, {
-      onSuccess: () => {
-        refetch();
-      },
-    });
-  };
-
   const deactivateUser = useDeactivateUser();
-  const handleDeactivateUser = (id: string) => {
-    deactivateUser.mutate(id, {
-      onSuccess: () => {
-        refetch();
-      },
-    });
+
+  const handleConfirmAction = () => {
+    if (!selectedUserId || !actionType) return;
+
+    if (actionType === "activate") {
+      activateUser.mutate(selectedUserId, {
+        onSuccess: () => {
+          refetch();
+          setConfirmOpen(false);
+        },
+      });
+    } else {
+      deactivateUser.mutate(selectedUserId, {
+        onSuccess: () => {
+          refetch();
+          setConfirmOpen(false);
+        },
+      });
+    }
   };
 
   const columns: GridColDef[] = [
@@ -100,7 +121,7 @@ const Users: React.FC = () => {
             <Tooltip title="Deactivate">
               <IconButton
                 color="error"
-                onClick={() => handleDeactivateUser(params.row.id)}
+                onClick={() => openConfirmDialog(params.row.id, "deactivate")}
                 disabled={deactivateUser.isPending}
               >
                 <ActiveUserIcon />
@@ -110,7 +131,7 @@ const Users: React.FC = () => {
             <Tooltip title="Activate">
               <IconButton
                 color="success"
-                onClick={() => handleActivateUser(params.row.id)}
+                onClick={() => openConfirmDialog(params.row.id, "activate")}
                 disabled={activateUser.isPending}
               >
                 <InactiveUserIcon />
@@ -161,6 +182,17 @@ const Users: React.FC = () => {
           }}
         />
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        title={actionType === "activate" ? "Activate User" : "Deactivate User"}
+        message={`Are you sure you want to ${actionType} this user?`}
+        confirmText={actionType === "activate" ? "Activate" : "Deactivate"}
+        confirmColor={actionType === "activate" ? "success" : "error"}
+        loading={activateUser.isPending || deactivateUser.isPending}
+        onConfirm={handleConfirmAction}
+        onCancel={() => setConfirmOpen(false)}
+      />
     </Box>
   );
 };
