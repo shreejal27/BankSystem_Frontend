@@ -21,6 +21,7 @@ const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 
+const AccountPage = lazy(() => import("../pages/AccountPage"));
 const DepositPage = lazy(() => import("../pages/DepositPage"));
 const WithdrawPage = lazy(() => import("../pages/WithdrawPage"));
 const TransferPage = lazy(() => import("../pages/TransferPage"));
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
             <Route path="users/edit/:id" element={<EditUser />} />
             <Route path="pending-users" element={<PendingUsers />} />
 
+            <Route path="accounts" element={<AccountPage />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="deposit" element={<DepositPage />} />
             <Route path="withdraw" element={<WithdrawPage />} />
