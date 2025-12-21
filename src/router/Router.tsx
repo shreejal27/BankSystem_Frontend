@@ -16,6 +16,7 @@ import PendingUsers from "../pages/Admin/PendingUsers";
 const AdminDashboard = lazy(() => import("../pages/Admin/AdminDashboard"));
 const Users = lazy(() => import("../pages/Admin/Users"));
 const EditUser = lazy(() => import("../pages/Admin/EditUsers"));
+const ManageAccounts = lazy(() => import("../pages/Admin/ManageAccounts"));
 
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
             <Route path="users" element={<Users />} />
             <Route path="users/edit/:id" element={<EditUser />} />
             <Route path="pending-users" element={<PendingUsers />} />
+            <Route path="manage-accounts" element={<ManageAccounts />} />
 
             <Route path="accounts" element={<AccountPage />} />
             <Route path="dashboard" element={<Dashboard />} />

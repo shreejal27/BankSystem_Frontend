@@ -48,7 +48,11 @@ export const sidebarItemsAdmin = [
       { name: "Pending Users", path: "/pending-users" },
     ],
   },
-  { name: "Manage Accounts", path: "/accounts", icon: <AccountBalanceIcon /> },
+  {
+    name: "Manage Accounts",
+    path: "/manage-accounts",
+    icon: <AccountBalanceIcon />,
+  },
   { name: "Transactions", path: "/transactions", icon: <HistoryIcon /> },
   { name: "Reports", path: "/reports", icon: <BarChartIcon /> },
   { name: "Settings", path: "/settings", icon: <SettingsIcon /> },

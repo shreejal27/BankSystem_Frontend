@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -6,8 +6,20 @@ import {
   CardContent,
   Button,
   Divider,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import {
+  ResponsiveContainer,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Legend,
+  Bar,
+} from "recharts";
+
+/* -------------------- Dummy Account Data -------------------- */
 
 const account = {
   accountNumber: "**** **** **** 3487",
@@ -15,51 +27,51 @@ const account = {
   status: "Active",
   currency: "NPR",
   createdAt: "2024-01-15",
-  availableBalance: 9999999013.0,
-  ledgerBalance: 9999999013.0,
-  onHoldAmount: 0.0,
+  availableBalance: 9999999013,
+  ledgerBalance: 9999999013,
+  onHoldAmount: 0,
 };
 
-const transactions = [
-  {
-    id: 1,
-    type: "Deposit",
-    amount: 11.0,
-    balanceAfter: 9999999013.0,
-    date: "11/12/2025, 4:26:04 PM",
-    remarks: "Cash Deposit",
-  },
-  {
-    id: 2,
-    type: "Transfer",
-    amount: 999.0,
-    balanceAfter: 9999999002.0,
-    date: "11/11/2025, 5:58:47 PM",
-    remarks: "Fund Transfer",
-  },
-  {
-    id: 3,
-    type: "Withdraw",
-    amount: 3.0,
-    balanceAfter: 9999998003.0,
-    date: "11/11/2025, 5:51:38 PM",
-    remarks: "ATM Withdrawal",
-  },
+/* -------------------- Dummy Chart Data -------------------- */
+
+const dailyData = [
+  { label: "Today", deposit: 12000, withdraw: 4000 },
 ];
 
-const columns: GridColDef[] = [
-  { field: "type", headerName: "Type", flex: 1 },
-  { field: "amount", headerName: "Amount", flex: 1 },
-  { field: "balanceAfter", headerName: "Balance After", flex: 1 },
-  { field: "date", headerName: "Date", flex: 1.5 },
-  { field: "remarks", headerName: "Remarks", flex: 1.5 },
+const weeklyData = [
+  { label: "Sun", deposit: 2000, withdraw: 500 },
+  { label: "Mon", deposit: 4000, withdraw: 1500 },
+  { label: "Tue", deposit: 3000, withdraw: 1000 },
+  { label: "Wed", deposit: 5000, withdraw: 2000 },
+  { label: "Thu", deposit: 1000, withdraw: 300 },
+  { label: "Fri", deposit: 7000, withdraw: 2500 },
+  { label: "Sat", deposit: 6000, withdraw: 1800 },
 ];
+
+const monthlyData = [
+  { label: "Week 1", deposit: 15000, withdraw: 6000 },
+  { label: "Week 2", deposit: 22000, withdraw: 9000 },
+  { label: "Week 3", deposit: 18000, withdraw: 7000 },
+  { label: "Week 4", deposit: 26000, withdraw: 11000 },
+];
+
+/* -------------------- Component -------------------- */
 
 export default function AccountDetails() {
+  const [range, setRange] = useState<"daily" | "weekly" | "monthly">("weekly");
+
+  const chartData =
+    range === "daily"
+      ? dailyData
+      : range === "weekly"
+      ? weeklyData
+      : monthlyData;
+
   return (
     <Box p={3} display="flex" flexDirection="column" gap={3}>
       <Typography variant="h5">Account Details</Typography>
 
+      {/* Account Summary */}
       <Card>
         <CardContent>
           <Typography variant="h6">Account Summary</Typography>
@@ -72,6 +84,7 @@ export default function AccountDetails() {
         </CardContent>
       </Card>
 
+      {/* Balance Details */}
       <Card>
         <CardContent>
           <Typography variant="h6">Balance Details</Typography>
@@ -88,6 +101,7 @@ export default function AccountDetails() {
         </CardContent>
       </Card>
 
+      {/* Quick Actions */}
       <Card>
         <CardContent>
           <Typography variant="h6">Quick Actions</Typography>
@@ -101,18 +115,41 @@ export default function AccountDetails() {
         </CardContent>
       </Card>
 
+      {/* Transaction Overview */}
       <Card>
         <CardContent>
-          <Typography variant="h6" mb={2}>
-            Transaction History
-          </Typography>
-          <DataGrid
-            rows={transactions}
-            columns={columns}
-            autoHeight
-            pageSizeOptions={[5, 10]}
-            disableRowSelectionOnClick
-          />
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={2}
+          >
+            <Typography variant="h6">Transaction Overview</Typography>
+
+            <ToggleButtonGroup
+              value={range}
+              exclusive
+              size="small"
+              onChange={(_, value) => value && setRange(value)}
+            >
+              <ToggleButton value="daily">Daily</ToggleButton>
+              <ToggleButton value="weekly">Weekly</ToggleButton>
+              <ToggleButton value="monthly">Monthly</ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
+
+          <Box width="100%" height={240}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="label" />
+                <YAxis />
+                <Legend />
+                <Bar dataKey="deposit" name="Deposit" />
+                <Bar dataKey="withdraw" name="Withdraw" />
+              </BarChart>
+            </ResponsiveContainer>
+          </Box>
         </CardContent>
       </Card>
     </Box>
