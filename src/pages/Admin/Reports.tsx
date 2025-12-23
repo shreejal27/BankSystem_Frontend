@@ -1,259 +1,167 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import {
-  Container,
-  Grid,
-  Paper,
+  Box,
   Typography,
-  CircularProgress,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  Divider,
 } from "@mui/material";
-import { useAuth } from "../../context/AuthContext";
-
+import DownloadIcon from "@mui/icons-material/Download";
 import {
-  LineChart,
-  Line,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   Tooltip,
-  CartesianGrid,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts";
 
-interface Transaction {
-  id: string;
-  accountId: string;
-  amount: number;
-  type: string;
-  description: string;
-  timestamp: string;
-}
+const kpiData = [
+  { title: "Total Transactions", value: "12,450", color: "#1976d2" },
+  { title: "Total Deposits (NPR)", value: "45,200,000", color: "#2e7d32" },
+  { title: "Total Withdrawals (NPR)", value: "31,600,000", color: "#d32f2f" },
+  { title: "Net Cash Flow (NPR)", value: "+13,600,000", color: "#0288d1" },
+  { title: "Active Accounts", value: "3,284", color: "#6a1b9a" },
+];
 
-export const ReportsPage = () => {
-  const { token } = useAuth();
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState(true);
+const transactionChartData = [
+  { day: "Mon", deposits: 1200000, withdrawals: 900000 },
+  { day: "Tue", deposits: 1500000, withdrawals: 1100000 },
+  { day: "Wed", deposits: 1000000, withdrawals: 700000 },
+  { day: "Thu", deposits: 1800000, withdrawals: 1300000 },
+  { day: "Fri", deposits: 2200000, withdrawals: 500000 },
+  { day: "Sat", deposits: 1100000, withdrawals: 1600000 },
+  { day: "Sun", deposits: 900000, withdrawals: 700000 },
+];
 
-  // KPI states
-  const [totalUsers, setTotalUsers] = useState(0);
-  const [totalAccounts, setTotalAccounts] = useState(0);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const resTx = await fetch("/transactions/admin/all", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const txData: Transaction[] = await resTx.json();
-
-        setTransactions(txData);
-        const resUsers = await fetch("/admin/users/count", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const resAccounts = await fetch("/admin/accounts/count", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        setTotalUsers(await resUsers.json());
-        setTotalAccounts(await resAccounts.json());
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, [token]);
-
-  if (loading) {
-    return (
-      <Container sx={{ mt: 5, textAlign: "center" }}>
-        <CircularProgress />
-      </Container>
-    );
-  }
-
-  // ------------------------------
-  // DAILY TRANSACTIONS (Line Chart)
-  // ------------------------------
-  const dailyData = Object.values(
-    transactions.reduce((acc: any, tx) => {
-      const date = tx.timestamp.split("T")[0];
-      if (!acc[date]) acc[date] = { date, count: 0 };
-      acc[date].count += 1;
-      return acc;
-    }, {})
-  );
-
-  // ------------------------------
-  // BAR CHART (Deposit/Withdraw/Transfer)
-  // ------------------------------
-  const typesCount: Record<string, number> = {
-    Deposit: 0,
-    Withdraw: 0,
-    TransferIncoming: 0,
-    TransferOutgoing: 0,
-  };
-
-  transactions.forEach((t) => {
-    if (typesCount[t.type] !== undefined) {
-      typesCount[t.type] += 1;
-    }
-  });
-
-  const barData = [
-    { name: "Deposit", value: typesCount.Deposit },
-    { name: "Withdraw", value: typesCount.Withdraw },
-    { name: "Incoming", value: typesCount.TransferIncoming },
-    { name: "Outgoing", value: typesCount.TransferOutgoing },
-  ];
-
-  // ------------------------------
-  // PIE CHART (Transaction Type Distribution)
-  // ------------------------------
-  const pieData = barData;
-  const pieColors = ["#0088FE", "#FF8042", "#00C49F", "#FFBB28"];
-
+const Reports: React.FC = () => {
   return (
-    <Container sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Reports & Analytics
+    <Box p={3}>
+      <Typography variant="h4" fontWeight={700} gutterBottom>
+        Reports Overview
       </Typography>
 
-      {/* KPI CARDS */}
-      <Grid container spacing={3} sx={{ mb: 2 }}>
-        <Grid>
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6">Total Users</Typography>
-            <Typography variant="h4">{totalUsers}</Typography>
-          </Paper>
-        </Grid>
+      <Typography color="text.secondary" mb={4}>
+        Financial performance and system activity snapshot
+      </Typography>
 
-        <Grid size={12}>
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6">Total Accounts</Typography>
-            <Typography variant="h4">{totalAccounts}</Typography>
-          </Paper>
-        </Grid>
-
-        <Grid size={12}>
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6">Total Transactions</Typography>
-            <Typography variant="h4">{transactions.length}</Typography>
-          </Paper>
-        </Grid>
-
-        <Grid size={12}>
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6">Total Volume</Typography>
-            <Typography variant="h5">
-              Rs.{" "}
-              {transactions
-                .reduce((sum, t) => sum + t.amount, 0)
-                .toLocaleString()}
-            </Typography>
-          </Paper>
-        </Grid>
+      <Grid container spacing={3} mb={4}>
+        {kpiData.map((kpi, index) => (
+          <Grid size={4} key={index}>
+            <Card
+              sx={{
+                borderLeft: `6px solid ${kpi.color}`,
+                height: "100%",
+              }}
+            >
+              <CardContent>
+                <Typography variant="body2" color="text.secondary">
+                  {kpi.title}
+                </Typography>
+                <Typography variant="h6" fontWeight={700} mt={1}>
+                  {kpi.value}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
 
-      {/* LINE CHART */}
-      <Paper sx={{ p: 2, mb: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Daily Transaction Count
-        </Typography>
-        <LineChart width={900} height={300} data={dailyData}>
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Line
-            type="monotone"
-            dataKey="count"
-            stroke="#0088FE"
-            strokeWidth={2}
-          />
-        </LineChart>
-      </Paper>
+      <Card sx={{ mb: 4 }}>
+        <CardContent>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={2}
+          >
+            <Typography variant="h6" fontWeight={600}>
+              Transaction Summary (Weekly)
+            </Typography>
 
-      {/* BAR CHART & PIE CHART SIDE BY SIDE */}
+            <Box>
+              <Button size="small" startIcon={<DownloadIcon />} sx={{ mr: 1 }}>
+                CSV
+              </Button>
+              <Button size="small" startIcon={<DownloadIcon />}>
+                PDF
+              </Button>
+            </Box>
+          </Box>
+
+          <Divider sx={{ mb: 3 }} />
+
+          <Box height={300}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={transactionChartData}>
+                <XAxis dataKey="day" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="deposits" />
+                <Bar dataKey="withdrawals" />
+              </BarChart>
+            </ResponsiveContainer>
+          </Box>
+        </CardContent>
+      </Card>
+
       <Grid container spacing={3}>
         <Grid size={12}>
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6" gutterBottom>
-              Deposits vs Withdrawals vs Transfers
-            </Typography>
-            <BarChart width={450} height={300} data={barData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="value" fill="#0088FE" />
-            </BarChart>
-          </Paper>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" fontWeight={600} mb={2}>
+                Financial Snapshot
+              </Typography>
+
+              <Typography variant="body2">
+                • Total Fees Collected: <b>NPR 1,250,000</b>
+              </Typography>
+              <Typography variant="body2">
+                • Interest Paid: <b>NPR 2,800,000</b>
+              </Typography>
+              <Typography variant="body2">
+                • Overdraft Usage: <b>NPR 640,000</b>
+              </Typography>
+
+              <Box mt={3} textAlign="right">
+                <Button size="small" startIcon={<DownloadIcon />}>
+                  Download Report
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
         </Grid>
 
         <Grid size={12}>
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6" gutterBottom>
-              Transaction Type Distribution
-            </Typography>
-            <PieChart width={450} height={300}>
-              <Pie
-                data={pieData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={110}
-                label
-              >
-                {pieColors.map((color, index) => (
-                  <Cell key={index} fill={color} />
-                ))}
-              </Pie>
-            </PieChart>
-          </Paper>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" fontWeight={600} mb={2}>
+                Audit Activity Snapshot
+              </Typography>
+
+              <Typography variant="body2">
+                • Failed Login Attempts: <b>18</b>
+              </Typography>
+              <Typography variant="body2">
+                • Role Changes: <b>4</b>
+              </Typography>
+              <Typography variant="body2">
+                • Manual Overrides: <b>2</b>
+              </Typography>
+
+              <Box mt={3} textAlign="right">
+                <Button size="small" startIcon={<DownloadIcon />}>
+                  Download Logs
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
-
-      {/* FULL TRANSACTIONS TABLE */}
-      <Paper sx={{ p: 2, mt: 4 }}>
-        <Typography variant="h6" gutterBottom>
-          Full Transaction Table (Admin Only)
-        </Typography>
-
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Account</TableCell>
-              <TableCell align="right">Amount</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {transactions.map((tx) => (
-              <TableRow key={tx.id}>
-                <TableCell>{new Date(tx.timestamp).toLocaleString()}</TableCell>
-                <TableCell>{tx.type}</TableCell>
-                <TableCell>{tx.description}</TableCell>
-                <TableCell>{tx.accountId}</TableCell>
-                <TableCell align="right">Rs. {tx.amount.toFixed(2)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
-    </Container>
+    </Box>
   );
 };
 
-export default ReportsPage;
+export default Reports;
