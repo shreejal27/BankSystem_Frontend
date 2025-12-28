@@ -12,12 +12,19 @@ import {
   Avatar,
   Grid,
   Box,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
 
 import { useDashboardData } from "../queries/Dashboard/DashboardCommand";
+import { useState } from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Dashboard = () => {
   const { isLoading, isError, data: dashboardData } = useDashboardData();
+
+  const [showBalance, setShowBalance] = useState(false);
 
   console.log("Dashboard Data:", dashboardData);
 
@@ -66,9 +73,27 @@ const Dashboard = () => {
           <Card sx={{ backgroundColor: "#e3f2fd" }}>
             <CardContent>
               <Typography variant="h6">Total Balance</Typography>
-              <Typography variant="h4" color="primary">
-                Rs {dashboardData.totalBalance.toFixed(2)}
-              </Typography>
+
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Typography variant="h4" color="primary">
+                  {showBalance
+                    ? `Rs ${dashboardData.totalBalance.toFixed(2)}`
+                    : "Rs ******"}
+                </Typography>
+
+                <Tooltip title={showBalance ? "Hide balance" : "Show balance"}>
+                  <IconButton
+                    size="small"
+                    onClick={() => setShowBalance((prev) => !prev)}
+                  >
+                    {showBalance ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </Tooltip>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
