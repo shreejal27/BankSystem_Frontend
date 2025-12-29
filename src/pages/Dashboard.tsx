@@ -44,13 +44,13 @@ const Dashboard = () => {
     );
   }
 
-  const getTransactionType = (type: number) => {
+  const getTransactionType = (type: string) => {
     switch (type) {
-      case 0:
+      case "Deposit":
         return { label: "Deposit", color: "#66bb6a" };
-      case 1:
+      case "Withdraw":
         return { label: "Withdraw", color: "#ef5350" };
-      case 2:
+      case "Transfer":
         return { label: "Transfer", color: "#42a5f5" };
       default:
         return { label: "Unknown", color: "#bdbdbd" };
@@ -141,8 +141,8 @@ const Dashboard = () => {
                         </TableCell>
 
                         <TableCell>
-                          {t?.createdAt
-                            ? new Date(t.createdAt).toLocaleString()
+                          {t?.timestamp
+                            ? new Date(t.timestamp).toLocaleString()
                             : "N/A"}
                         </TableCell>
                       </TableRow>
