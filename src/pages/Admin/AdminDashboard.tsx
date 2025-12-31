@@ -93,14 +93,20 @@ const AdminDashboard = () => {
         <Card>
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              Registered Users
+              <strong>Registered Users</strong>
             </Typography>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Created At</TableCell>
+                  <TableCell>
+                    <strong>Name</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Email</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Created At</strong>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -123,17 +129,29 @@ const AdminDashboard = () => {
         <Card>
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              Recent Transactions
+              <strong>Recent Transactions</strong>
             </Typography>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Amount</TableCell>
-                  <TableCell>Type</TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell>Created At</TableCell>
+                  <TableCell>
+                    <strong>Name</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Email</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Amount</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Type</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Description</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Created At</strong>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

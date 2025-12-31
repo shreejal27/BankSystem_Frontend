@@ -151,6 +151,15 @@ const ManageAccounts = () => {
           disableRowSelectionOnClick
           loading={isLoading}
           pageSizeOptions={[5, 10, 20]}
+          sx={{
+            "& .MuiDataGrid-columnHeaders": {
+              fontWeight: 600,
+              background: "#f5f5f5",
+            },
+            "& .MuiDataGrid-columnHeaderTitle": {
+              fontWeight: "bold",
+            },
+          }}
         />
       </Box>
 

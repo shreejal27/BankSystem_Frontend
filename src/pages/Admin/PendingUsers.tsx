@@ -130,6 +130,9 @@ const PendingUsers: React.FC = () => {
               fontWeight: 600,
               background: "#f5f5f5",
             },
+            "& .MuiDataGrid-columnHeaderTitle": {
+              fontWeight: "bold",
+            },
           }}
         />
       )}
